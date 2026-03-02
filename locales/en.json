@@ -146,5 +146,16 @@
     "filterCompany": "Company",
     "ctaTitle": "Start a New Story\nWith EIM",
     "ctaDesc": "Studio EIM — your sound partner\nfor the next project."
+  },
+  "hero": {
+    "eyebrow": "Game Audio Partner · Since 1999",
+    "title": "We build games together.<br><span class=\"gradient-text\">Your Sound Partner, EIM.</span>",
+    "subtitle": "From planning to launch, EIM handles the sound.<br>27 years. 1,000+ games completed as your partner.",
+    "ctaPrimary": "Discuss Your Project",
+    "ctaSecondary": "View Services",
+    "statYears": "Years",
+    "statProjects": "Projects",
+    "statClients": "Clients",
+    "statTech": "Technology"
   }
 }
