@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /assets/images/thumbs/
+
+Sitemap: https://eim.co.kr/sitemap.xml
