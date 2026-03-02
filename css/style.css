@@ -272,6 +272,33 @@ a {
   background: transparent;
   transition: all var(--transition-smooth);
 }
+
+/* ── Nav on dark hero (before scroll) ── */
+.nav:not(.scrolled) .nav-menu a {
+  color: rgba(245, 243, 240, 0.75);
+}
+.nav:not(.scrolled) .nav-menu a:hover {
+  color: var(--text-white);
+}
+.nav:not(.scrolled) .nav-logo {
+  color: var(--text-white);
+}
+.nav:not(.scrolled) .nav-cta {
+  color: var(--brand-orange);
+  border-color: rgba(232,120,48,0.6);
+}
+.nav:not(.scrolled) .lang-current {
+  color: rgba(245, 243, 240, 0.7);
+  border-color: rgba(245, 243, 240, 0.2);
+}
+.nav:not(.scrolled) .lang-current:hover {
+  color: var(--brand-orange);
+  border-color: rgba(232,120,48,0.4);
+}
+.nav:not(.scrolled) .nav-arrow {
+  color: rgba(245, 243, 240, 0.5);
+}
+
 .nav.scrolled {
   background: rgba(255,255,255,0.92);
   backdrop-filter: blur(32px) saturate(1.4);
