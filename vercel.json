@@ -1,0 +1,33 @@
+{
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/eim-assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.*).html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/voice", "destination": "/voice.html" },
+    { "source": "/music", "destination": "/music.html" },
+    { "source": "/sound-design", "destination": "/sound-design.html" },
+    { "source": "/reviews", "destination": "/reviews.html" },
+    { "source": "/news", "destination": "/news.html" }
+  ]
+}

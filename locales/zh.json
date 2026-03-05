@@ -146,16 +146,5 @@
     "filterCompany": "公司动态",
     "ctaTitle": "与EIM一起\n开启新故事",
     "ctaDesc": "Studio EIM — 您下一个项目的\n声音合作伙伴。"
-  },
-  "hero": {
-    "eyebrow": "游戏音频合作伙伴 · Since 1999",
-    "title": "与您共同打造游戏。<br><span class=\"gradient-text\">开发商的声音伙伴，EIM。</span>",
-    "subtitle": "从策划到上线，EIM与您共同完成声音制作。<br>27年间，以合作伙伴身份完成了1,000多款游戏。",
-    "ctaPrimary": "项目咨询",
-    "ctaSecondary": "查看服务",
-    "statYears": "Years",
-    "statProjects": "Projects",
-    "statClients": "Clients",
-    "statTech": "Technology"
   }
 }

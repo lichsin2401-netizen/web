@@ -146,16 +146,5 @@
     "filterCompany": "회사 소식",
     "ctaTitle": "EIM과 함께\n새로운 이야기를",
     "ctaDesc": "다음 프로젝트의 사운드 파트너로\nStudio EIM이 함께합니다."
-  },
-  "hero": {
-    "eyebrow": "게임 오디오 파트너 · Since 1999",
-    "title": "게임을 함께 만듭니다.<br><span class=\"gradient-text\">개발사의 사운드 파트너, EIM.</span>",
-    "subtitle": "기획 단계부터 출시까지, 사운드는 EIM이 함께합니다.<br>27년간 1,000개의 게임을 파트너로서 완성해왔습니다.",
-    "ctaPrimary": "프로젝트 논의하기",
-    "ctaSecondary": "서비스 보기",
-    "statYears": "Years",
-    "statProjects": "Projects",
-    "statClients": "Clients",
-    "statTech": "Technology"
   }
 }
