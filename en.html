@@ -22,6 +22,11 @@
     <link rel="alternate" hreflang="ja" href="https://web-delta-lime-14.vercel.app/ja.html">
     <link rel="alternate" hreflang="zh" href="https://web-delta-lime-14.vercel.app/zh.html">
     <link rel="alternate" hreflang="de" href="https://web-delta-lime-14.vercel.app/de.html">
+    <link rel="alternate" hreflang="es" href="https://web-delta-lime-14.vercel.app/es.html">
+    <link rel="alternate" hreflang="it" href="https://web-delta-lime-14.vercel.app/it.html">
+    <link rel="alternate" hreflang="pt" href="https://web-delta-lime-14.vercel.app/pt.html">
+    <link rel="alternate" hreflang="fr" href="https://web-delta-lime-14.vercel.app/fr.html">
+    <link rel="alternate" hreflang="pl" href="https://web-delta-lime-14.vercel.app/pl.html">
     <link rel="alternate" hreflang="x-default" href="https://web-delta-lime-14.vercel.app/">
     <link rel="canonical" href="https://eim.kr">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -193,6 +198,7 @@ img{max-width:100%;display:block}
 .portfolio-row-1{animation:marqueeLeft 60s linear infinite}
 .portfolio-row-2{animation:marqueeRight 50s linear infinite}
 .portfolio-row-3{animation:marqueeLeft 70s linear infinite}
+.portfolio-row-4{animation:marqueeRight 55s linear infinite}
 .portfolio-card{flex-shrink:0;width:320px;height:200px;border-radius:12px;overflow:hidden;position:relative;cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
 .portfolio-card:hover{transform:scale(1.05);box-shadow:0 12px 40px rgba(232,120,48,0.3);z-index:2}
 .portfolio-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
@@ -224,9 +230,9 @@ img{max-width:100%;display:block}
 /* ══════════ CLIENTS — Infinite Scroll + Blur ══════════ */
 .clients{padding:140px 0 80px;background:var(--white);position:relative;overflow:hidden}
 .client-grid-full{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;padding:0 20px;margin-top:48px;transition:transform 0.1s ease-out}
-.client-grid-item{aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:12px 16px;background:#fff;border:1px solid rgba(0,0,0,.06);transition:all .4s var(--ease)}
+.client-grid-item{aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:16px 20px;background:#fff;border:1px solid rgba(0,0,0,.06);transition:all .4s var(--ease);min-height:100px}
 .client-grid-item:hover{transform:scale(1.05);box-shadow:0 8px 32px rgba(0,0,0,.1);border-color:var(--accent)}
-.client-grid-item img{width:85%;height:75%;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all .4s var(--ease)}
+.client-grid-item img{width:90%;height:auto;max-height:80px;min-height:50px;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all .4s var(--ease)}
 .client-grid-item:hover img{filter:grayscale(0%);opacity:1}
 .client-logo-item{flex-shrink:0;width:160px;height:100px;display:flex;align-items:center;justify-content:center;
   background:var(--cream);border:2px solid var(--border);border-radius:var(--radius);padding:15px;transition:all .3s}
@@ -512,6 +518,11 @@ to{transform:translateX(0)}}
         <a href="ja.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">JA</a>
         <a href="zh.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">ZH</a>
         <a href="de.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">DE</a>
+        <a href="es.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">ES</a>
+        <a href="fr.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">FR</a>
+        <a href="it.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">IT</a>
+        <a href="pt.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">PT</a>
+        <a href="pl.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">PL</a>
       </div>
       <a href="mailto:contact@eim.kr" class="nav-cta">Project Inquiry</a>
     </div>
@@ -1300,6 +1311,169 @@ to{transform:translateX(0)}}
         </div>
       </div>
     </div>
+    <div class="portfolio-row portfolio-row-4">
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Lies of P" data-dev="NEOWIZ" data-work="Full sound production for a soulslike action RPG. Orchestral recording, combat SFX, multilingual voice directing." data-img="eim-assets/img/games/lies_of_p.png">
+        <img src="eim-assets/img/games/lies_of_p.png" alt="Lies of P Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Lies of P</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Voice</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Night Crows" data-dev="Wemade" data-work="Combat sound effects for dark fantasy MMORPG." data-img="eim-assets/img/games/nightcrow.jpg">
+        <img src="eim-assets/img/games/nightcrow.jpg" alt="Night Crows Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Night Crows</div>
+          <div class="card-dev">Wemade</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Bless" data-dev="NEOWIZ" data-work="Large-scale boss battle sounds and orchestral BGM for next-gen MMORPG." data-img="eim-assets/img/games/bless.jpg">
+        <img src="eim-assets/img/games/bless.jpg" alt="Bless Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Bless</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="MapleStory" data-dev="NEXON" data-work="20 years of partnership on a live-service game. Seasonal BGM, event sounds." data-img="eim-assets/img/games/maplestory.jpg">
+        <img src="eim-assets/img/games/maplestory.jpg" alt="MapleStory Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">MapleStory</div>
+          <div class="card-dev">NEXON</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Event</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Throne and Liberty" data-dev="NC" data-work="Large-scale combat and environmental sound design for next-gen MMORPG." data-img="eim-assets/img/games/throne_liberty.png">
+        <img src="eim-assets/img/games/throne_liberty.png" alt="Throne and Liberty Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Throne and Liberty</div>
+          <div class="card-dev">NC</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Fortress Saga" data-dev="Com2uS" data-work="Combat BGM and character skill effect sound design for strategy RPG." data-img="eim-assets/img/games/fortress_saga_real.png">
+        <img src="eim-assets/img/games/fortress_saga_real.png" alt="Fortress Saga Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Fortress Saga</div>
+          <div class="card-dev">Com2uS</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Astellia" data-dev="Barunson" data-work="Orchestral BGM composition and combat sound design for fantasy MMORPG." data-img="eim-assets/img/games/astellia.png">
+        <img src="eim-assets/img/games/astellia.png" alt="Astellia Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Astellia</div>
+          <div class="card-dev">Barunson</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Devil Got: Satgat" data-dev="VisualShower" data-work="Full sound production for martial arts action RPG. Oriental BGM and combat SFX." data-img="eim-assets/img/games/devil_satgat.jpg">
+        <img src="eim-assets/img/games/devil_satgat.jpg" alt="Devil Got: Satgat Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Devil Got: Satgat</div>
+          <div class="card-dev">VisualShower</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Limbus Company" data-dev="Project Moon" data-work="Distinctive character voices and combat BGM for gacha RPG." data-img="eim-assets/img/games/limbus.jpg">
+        <img src="eim-assets/img/games/limbus.jpg" alt="Limbus Company Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Limbus Company</div>
+          <div class="card-dev">Project Moon</div>
+          <div class="card-tags"><span class="card-tag">Voice</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="CrossFire" data-dev="Smilegate" data-work="Weapon sound design, map ambience, and UI sound production for global FPS." data-img="eim-assets/img/games/crossfire.jpg">
+        <img src="eim-assets/img/games/crossfire.jpg" alt="CrossFire Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">CrossFire</div>
+          <div class="card-dev">Smilegate</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Lies of P" data-dev="NEOWIZ" data-work="Full sound production for a soulslike action RPG. Orchestral recording, combat SFX, multilingual voice directing." data-img="eim-assets/img/games/lies_of_p.png">
+        <img src="eim-assets/img/games/lies_of_p.png" alt="Lies of P Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Lies of P</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Voice</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Night Crows" data-dev="Wemade" data-work="Combat sound effects for dark fantasy MMORPG." data-img="eim-assets/img/games/nightcrow.jpg">
+        <img src="eim-assets/img/games/nightcrow.jpg" alt="Night Crows Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Night Crows</div>
+          <div class="card-dev">Wemade</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Bless" data-dev="NEOWIZ" data-work="Large-scale boss battle sounds and orchestral BGM for next-gen MMORPG." data-img="eim-assets/img/games/bless.jpg">
+        <img src="eim-assets/img/games/bless.jpg" alt="Bless Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Bless</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="MapleStory" data-dev="NEXON" data-work="20 years of partnership on a live-service game. Seasonal BGM, event sounds." data-img="eim-assets/img/games/maplestory.jpg">
+        <img src="eim-assets/img/games/maplestory.jpg" alt="MapleStory Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">MapleStory</div>
+          <div class="card-dev">NEXON</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Event</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Throne and Liberty" data-dev="NC" data-work="Large-scale combat and environmental sound design for next-gen MMORPG." data-img="eim-assets/img/games/throne_liberty.png">
+        <img src="eim-assets/img/games/throne_liberty.png" alt="Throne and Liberty Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Throne and Liberty</div>
+          <div class="card-dev">NC</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Fortress Saga" data-dev="Com2uS" data-work="Combat BGM and character skill effect sound design for strategy RPG." data-img="eim-assets/img/games/fortress_saga_real.png">
+        <img src="eim-assets/img/games/fortress_saga_real.png" alt="Fortress Saga Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Fortress Saga</div>
+          <div class="card-dev">Com2uS</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Astellia" data-dev="Barunson" data-work="Orchestral BGM composition and combat sound design for fantasy MMORPG." data-img="eim-assets/img/games/astellia.png">
+        <img src="eim-assets/img/games/astellia.png" alt="Astellia Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Astellia</div>
+          <div class="card-dev">Barunson</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Devil Got: Satgat" data-dev="VisualShower" data-work="Full sound production for martial arts action RPG. Oriental BGM and combat SFX." data-img="eim-assets/img/games/devil_satgat.jpg">
+        <img src="eim-assets/img/games/devil_satgat.jpg" alt="Devil Got: Satgat Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Devil Got: Satgat</div>
+          <div class="card-dev">VisualShower</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Limbus Company" data-dev="Project Moon" data-work="Distinctive character voices and combat BGM for gacha RPG." data-img="eim-assets/img/games/limbus.jpg">
+        <img src="eim-assets/img/games/limbus.jpg" alt="Limbus Company Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Limbus Company</div>
+          <div class="card-dev">Project Moon</div>
+          <div class="card-tags"><span class="card-tag">Voice</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="CrossFire" data-dev="Smilegate" data-work="Weapon sound design, map ambience, and UI sound production for global FPS." data-img="eim-assets/img/games/crossfire.jpg">
+        <img src="eim-assets/img/games/crossfire.jpg" alt="CrossFire Game Audio" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">CrossFire</div>
+          <div class="card-dev">Smilegate</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 

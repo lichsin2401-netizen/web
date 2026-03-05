@@ -22,6 +22,11 @@
     <link rel="alternate" hreflang="ja" href="https://web-delta-lime-14.vercel.app/ja.html">
     <link rel="alternate" hreflang="zh" href="https://web-delta-lime-14.vercel.app/zh.html">
     <link rel="alternate" hreflang="de" href="https://web-delta-lime-14.vercel.app/de.html">
+    <link rel="alternate" hreflang="es" href="https://web-delta-lime-14.vercel.app/es.html">
+    <link rel="alternate" hreflang="it" href="https://web-delta-lime-14.vercel.app/it.html">
+    <link rel="alternate" hreflang="pt" href="https://web-delta-lime-14.vercel.app/pt.html">
+    <link rel="alternate" hreflang="fr" href="https://web-delta-lime-14.vercel.app/fr.html">
+    <link rel="alternate" hreflang="pl" href="https://web-delta-lime-14.vercel.app/pl.html">
     <link rel="alternate" hreflang="x-default" href="https://web-delta-lime-14.vercel.app/">
     <link rel="canonical" href="https://eim.kr">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -193,6 +198,7 @@ img{max-width:100%;display:block}
 .portfolio-row-1{animation:marqueeLeft 60s linear infinite}
 .portfolio-row-2{animation:marqueeRight 50s linear infinite}
 .portfolio-row-3{animation:marqueeLeft 70s linear infinite}
+.portfolio-row-4{animation:marqueeRight 55s linear infinite}
 .portfolio-card{flex-shrink:0;width:320px;height:200px;border-radius:12px;overflow:hidden;position:relative;cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
 .portfolio-card:hover{transform:scale(1.05);box-shadow:0 12px 40px rgba(232,120,48,0.3);z-index:2}
 .portfolio-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
@@ -224,9 +230,9 @@ img{max-width:100%;display:block}
 /* ══════════ CLIENTS — Infinite Scroll + Blur ══════════ */
 .clients{padding:140px 0 80px;background:var(--white);position:relative;overflow:hidden}
 .client-grid-full{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;padding:0 20px;margin-top:48px;transition:transform 0.1s ease-out}
-.client-grid-item{aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:12px 16px;background:#fff;border:1px solid rgba(0,0,0,.06);transition:all .4s var(--ease)}
+.client-grid-item{aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:16px 20px;background:#fff;border:1px solid rgba(0,0,0,.06);transition:all .4s var(--ease);min-height:100px}
 .client-grid-item:hover{transform:scale(1.05);box-shadow:0 8px 32px rgba(0,0,0,.1);border-color:var(--accent)}
-.client-grid-item img{width:85%;height:75%;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all .4s var(--ease)}
+.client-grid-item img{width:90%;height:auto;max-height:80px;min-height:50px;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all .4s var(--ease)}
 .client-grid-item:hover img{filter:grayscale(0%);opacity:1}
 .client-logo-item{flex-shrink:0;width:160px;height:100px;display:flex;align-items:center;justify-content:center;
   background:var(--cream);border:2px solid var(--border);border-radius:var(--radius);padding:15px;transition:all .3s}
@@ -512,6 +518,11 @@ to{transform:translateX(0)}}
         <a href="ja.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">JA</a>
         <a href="zh.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">ZH</a>
         <a href="de.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">DE</a>
+        <a href="es.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">ES</a>
+        <a href="fr.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">FR</a>
+        <a href="it.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">IT</a>
+        <a href="pt.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">PT</a>
+        <a href="pl.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">PL</a>
       </div>
       <a href="mailto:contact@eim.kr" class="nav-cta">项目咨询</a>
     </div>
@@ -1300,6 +1311,169 @@ to{transform:translateX(0)}}
         </div>
       </div>
     </div>
+    <div class="portfolio-row portfolio-row-4">
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="P的谎言" data-dev="NEOWIZ" data-work="魂类动作RPG的全套音频制作。管弦乐录音、战斗SFX、多语言配音指导。" data-img="eim-assets/img/games/lies_of_p.png">
+        <img src="eim-assets/img/games/lies_of_p.png" alt="匹诺曹的谎言 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">P的谎言</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Voice</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="暗夜之鸦" data-dev="Wemade" data-work="暗黑奇幻MMORPG的战斗音效。" data-img="eim-assets/img/games/nightcrow.jpg">
+        <img src="eim-assets/img/games/nightcrow.jpg" alt="夜鸦 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">暗夜之鸦</div>
+          <div class="card-dev">Wemade</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Bless" data-dev="NEOWIZ" data-work="次世代MMORPG的大规模Boss战音效和管弦乐BGM。" data-img="eim-assets/img/games/bless.jpg">
+        <img src="eim-assets/img/games/bless.jpg" alt="Bless 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Bless</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="冒险岛" data-dev="NEXON" data-work="20年合作的长线运营游戏。季节BGM、活动音效。" data-img="eim-assets/img/games/maplestory.jpg">
+        <img src="eim-assets/img/games/maplestory.jpg" alt="冒险岛 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">冒险岛</div>
+          <div class="card-dev">NEXON</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Event</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="王座与自由" data-dev="NC" data-work="次世代MMORPG的大规模战斗与环境音效设计。" data-img="eim-assets/img/games/throne_liberty.png">
+        <img src="eim-assets/img/games/throne_liberty.png" alt="王座与自由 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">王座与自由</div>
+          <div class="card-dev">NC</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="要塞传奇" data-dev="Com2uS" data-work="策略RPG的战斗BGM和角色技能音效设计。" data-img="eim-assets/img/games/fortress_saga_real.png">
+        <img src="eim-assets/img/games/fortress_saga_real.png" alt="要塞传说 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">要塞传奇</div>
+          <div class="card-dev">Com2uS</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Astellia" data-dev="Barunson" data-work="奇幻MMORPG的管弦乐BGM作曲和战斗音效设计。" data-img="eim-assets/img/games/astellia.png">
+        <img src="eim-assets/img/games/astellia.png" alt="Astellia 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Astellia</div>
+          <div class="card-dev">Barunson</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Devil Got: Satgat" data-dev="VisualShower" data-work="武侠动作RPG的全套音频制作。东方风BGM和战斗SFX。" data-img="eim-assets/img/games/devil_satgat.jpg">
+        <img src="eim-assets/img/games/devil_satgat.jpg" alt="魔神：笠 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Devil Got: Satgat</div>
+          <div class="card-dev">VisualShower</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="边狱公司" data-dev="Project Moon" data-work="抽卡RPG的个性化角色配音和战斗BGM制作。" data-img="eim-assets/img/games/limbus.jpg">
+        <img src="eim-assets/img/games/limbus.jpg" alt="边狱公司 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">边狱公司</div>
+          <div class="card-dev">Project Moon</div>
+          <div class="card-tags"><span class="card-tag">Voice</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="穿越火线" data-dev="Smilegate" data-work="全球FPS的枪械音效设计、地图环境音、UI音效制作。" data-img="eim-assets/img/games/crossfire.jpg">
+        <img src="eim-assets/img/games/crossfire.jpg" alt="穿越火线 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">穿越火线</div>
+          <div class="card-dev">Smilegate</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="P的谎言" data-dev="NEOWIZ" data-work="魂类动作RPG的全套音频制作。管弦乐录音、战斗SFX、多语言配音指导。" data-img="eim-assets/img/games/lies_of_p.png">
+        <img src="eim-assets/img/games/lies_of_p.png" alt="匹诺曹的谎言 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">P的谎言</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Voice</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="暗夜之鸦" data-dev="Wemade" data-work="暗黑奇幻MMORPG的战斗音效。" data-img="eim-assets/img/games/nightcrow.jpg">
+        <img src="eim-assets/img/games/nightcrow.jpg" alt="夜鸦 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">暗夜之鸦</div>
+          <div class="card-dev">Wemade</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Bless" data-dev="NEOWIZ" data-work="次世代MMORPG的大规模Boss战音效和管弦乐BGM。" data-img="eim-assets/img/games/bless.jpg">
+        <img src="eim-assets/img/games/bless.jpg" alt="Bless 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Bless</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="冒险岛" data-dev="NEXON" data-work="20年合作的长线运营游戏。季节BGM、活动音效。" data-img="eim-assets/img/games/maplestory.jpg">
+        <img src="eim-assets/img/games/maplestory.jpg" alt="冒险岛 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">冒险岛</div>
+          <div class="card-dev">NEXON</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Event</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="王座与自由" data-dev="NC" data-work="次世代MMORPG的大规模战斗与环境音效设计。" data-img="eim-assets/img/games/throne_liberty.png">
+        <img src="eim-assets/img/games/throne_liberty.png" alt="王座与自由 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">王座与自由</div>
+          <div class="card-dev">NC</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="要塞传奇" data-dev="Com2uS" data-work="策略RPG的战斗BGM和角色技能音效设计。" data-img="eim-assets/img/games/fortress_saga_real.png">
+        <img src="eim-assets/img/games/fortress_saga_real.png" alt="要塞传说 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">要塞传奇</div>
+          <div class="card-dev">Com2uS</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Astellia" data-dev="Barunson" data-work="奇幻MMORPG的管弦乐BGM作曲和战斗音效设计。" data-img="eim-assets/img/games/astellia.png">
+        <img src="eim-assets/img/games/astellia.png" alt="Astellia 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Astellia</div>
+          <div class="card-dev">Barunson</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="Devil Got: Satgat" data-dev="VisualShower" data-work="武侠动作RPG的全套音频制作。东方风BGM和战斗SFX。" data-img="eim-assets/img/games/devil_satgat.jpg">
+        <img src="eim-assets/img/games/devil_satgat.jpg" alt="魔神：笠 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">Devil Got: Satgat</div>
+          <div class="card-dev">VisualShower</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="边狱公司" data-dev="Project Moon" data-work="抽卡RPG的个性化角色配音和战斗BGM制作。" data-img="eim-assets/img/games/limbus.jpg">
+        <img src="eim-assets/img/games/limbus.jpg" alt="边狱公司 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">边狱公司</div>
+          <div class="card-dev">Project Moon</div>
+          <div class="card-tags"><span class="card-tag">Voice</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="穿越火线" data-dev="Smilegate" data-work="全球FPS的枪械音效设计、地图环境音、UI音效制作。" data-img="eim-assets/img/games/crossfire.jpg">
+        <img src="eim-assets/img/games/crossfire.jpg" alt="穿越火线 游戏音频" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">穿越火线</div>
+          <div class="card-dev">Smilegate</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 

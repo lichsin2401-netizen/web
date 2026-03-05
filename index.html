@@ -22,6 +22,11 @@
     <link rel="alternate" hreflang="ja" href="https://web-delta-lime-14.vercel.app/ja.html">
     <link rel="alternate" hreflang="zh" href="https://web-delta-lime-14.vercel.app/zh.html">
     <link rel="alternate" hreflang="de" href="https://web-delta-lime-14.vercel.app/de.html">
+    <link rel="alternate" hreflang="es" href="https://web-delta-lime-14.vercel.app/es.html">
+    <link rel="alternate" hreflang="it" href="https://web-delta-lime-14.vercel.app/it.html">
+    <link rel="alternate" hreflang="pt" href="https://web-delta-lime-14.vercel.app/pt.html">
+    <link rel="alternate" hreflang="fr" href="https://web-delta-lime-14.vercel.app/fr.html">
+    <link rel="alternate" hreflang="pl" href="https://web-delta-lime-14.vercel.app/pl.html">
     <link rel="alternate" hreflang="x-default" href="https://web-delta-lime-14.vercel.app/">
     <link rel="canonical" href="https://eim.kr">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -193,6 +198,7 @@ img{max-width:100%;display:block}
 .portfolio-row-1{animation:marqueeLeft 60s linear infinite}
 .portfolio-row-2{animation:marqueeRight 50s linear infinite}
 .portfolio-row-3{animation:marqueeLeft 70s linear infinite}
+.portfolio-row-4{animation:marqueeRight 55s linear infinite}
 .portfolio-card{flex-shrink:0;width:320px;height:200px;border-radius:12px;overflow:hidden;position:relative;cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
 .portfolio-card:hover{transform:scale(1.05);box-shadow:0 12px 40px rgba(232,120,48,0.3);z-index:2}
 .portfolio-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
@@ -224,9 +230,9 @@ img{max-width:100%;display:block}
 /* ══════════ CLIENTS — Infinite Scroll + Blur ══════════ */
 .clients{padding:140px 0 80px;background:var(--white);position:relative;overflow:hidden}
 .client-grid-full{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;padding:0 20px;margin-top:48px;transition:transform 0.1s ease-out}
-.client-grid-item{aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:12px 16px;background:#fff;border:1px solid rgba(0,0,0,.06);transition:all .4s var(--ease)}
+.client-grid-item{aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:16px 20px;background:#fff;border:1px solid rgba(0,0,0,.06);transition:all .4s var(--ease);min-height:100px}
 .client-grid-item:hover{transform:scale(1.05);box-shadow:0 8px 32px rgba(0,0,0,.1);border-color:var(--accent)}
-.client-grid-item img{width:85%;height:75%;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all .4s var(--ease)}
+.client-grid-item img{width:90%;height:auto;max-height:80px;min-height:50px;object-fit:contain;filter:grayscale(30%);opacity:0.85;transition:all .4s var(--ease)}
 .client-grid-item:hover img{filter:grayscale(0%);opacity:1}
 .client-logo-item{flex-shrink:0;width:160px;height:100px;display:flex;align-items:center;justify-content:center;
   background:var(--cream);border:2px solid var(--border);border-radius:var(--radius);padding:15px;transition:all .3s}
@@ -512,6 +518,11 @@ to{transform:translateX(0)}}
         <a href="ja.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">JA</a>
         <a href="zh.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">ZH</a>
         <a href="de.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">DE</a>
+        <a href="es.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">ES</a>
+        <a href="fr.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">FR</a>
+        <a href="it.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">IT</a>
+        <a href="pt.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">PT</a>
+        <a href="pl.html" style="font-size:0.75rem;padding:2px 6px;border-radius:4px;color:var(--text-2);text-decoration:none;border:1px solid transparent;transition:all .2s">PL</a>
       </div>
       <a href="mailto:contact@eim.kr" class="nav-cta">프로젝트 문의</a>
     </div>
@@ -1300,6 +1311,169 @@ to{transform:translateX(0)}}
         </div>
       </div>
     </div>
+    <div class="portfolio-row portfolio-row-4">
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="P의 거짓" data-dev="NEOWIZ" data-work="소울라이크 액션 RPG의 전체 사운드 프로덕션. 오케스트라 녹음, 전투 SFX, 다국어 보이스 디렉팅." data-img="eim-assets/img/games/lies_of_p.png">
+        <img src="eim-assets/img/games/lies_of_p.png" alt="P의 거짓 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">P의 거짓</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Voice</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="나이트크로우" data-dev="Wemade" data-work="다크 판타지 MMORPG의 전투 사운드 이펙트." data-img="eim-assets/img/games/nightcrow.jpg">
+        <img src="eim-assets/img/games/nightcrow.jpg" alt="나이트크로우 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">나이트크로우</div>
+          <div class="card-dev">Wemade</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="블레스" data-dev="NEOWIZ" data-work="차세대 MMORPG의 대규모 보스전 사운드 및 오케스트라 BGM." data-img="eim-assets/img/games/bless.jpg">
+        <img src="eim-assets/img/games/bless.jpg" alt="블레스 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">블레스</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="메이플스토리" data-dev="NEXON" data-work="20년간 함께한 라이브 서비스 게임. 시즌별 BGM, 이벤트 사운드." data-img="eim-assets/img/games/maplestory.jpg">
+        <img src="eim-assets/img/games/maplestory.jpg" alt="메이플스토리 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">메이플스토리</div>
+          <div class="card-dev">NEXON</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Event</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="쓰론 앤 리버티" data-dev="NC" data-work="차세대 MMORPG의 대규모 전투 및 환경 사운드 디자인." data-img="eim-assets/img/games/throne_liberty.png">
+        <img src="eim-assets/img/games/throne_liberty.png" alt="쓰론 앤 리버티 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">쓰론 앤 리버티</div>
+          <div class="card-dev">NC</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="포트리스사가" data-dev="Com2uS" data-work="전략 RPG의 전투 BGM 및 캐릭터 스킬 이펙트 사운드 디자인." data-img="eim-assets/img/games/fortress_saga_real.png">
+        <img src="eim-assets/img/games/fortress_saga_real.png" alt="포트리스사가 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">포트리스사가</div>
+          <div class="card-dev">Com2uS</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="아스텔리아" data-dev="Barunson" data-work="판타지 MMORPG의 오케스트라 BGM 작곡 및 전투 사운드 디자인." data-img="eim-assets/img/games/astellia.png">
+        <img src="eim-assets/img/games/astellia.png" alt="아스텔리아 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">아스텔리아</div>
+          <div class="card-dev">Barunson</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="데빌 갓: 삿갓" data-dev="VisualShower" data-work="무협 액션 RPG의 전체 사운드 프로덕션. 동양풍 BGM 및 전투 SFX." data-img="eim-assets/img/games/devil_satgat.jpg">
+        <img src="eim-assets/img/games/devil_satgat.jpg" alt="데빌 갓: 삿갓 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">데빌 갓: 삿갓</div>
+          <div class="card-dev">VisualShower</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="림버스 컴퍼니" data-dev="Project Moon" data-work="가챠 RPG의 개성적 캐릭터 보이스 및 전투 BGM 제작." data-img="eim-assets/img/games/limbus.jpg">
+        <img src="eim-assets/img/games/limbus.jpg" alt="림버스 컴퍼니 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">림버스 컴퍼니</div>
+          <div class="card-dev">Project Moon</div>
+          <div class="card-tags"><span class="card-tag">Voice</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="크로스파이어" data-dev="Smilegate" data-work="글로벌 FPS의 총기 사운드 디자인, 맵 환경음, UI 사운드 프로덕션." data-img="eim-assets/img/games/crossfire.jpg">
+        <img src="eim-assets/img/games/crossfire.jpg" alt="크로스파이어 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">크로스파이어</div>
+          <div class="card-dev">Smilegate</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="P의 거짓" data-dev="NEOWIZ" data-work="소울라이크 액션 RPG의 전체 사운드 프로덕션. 오케스트라 녹음, 전투 SFX, 다국어 보이스 디렉팅." data-img="eim-assets/img/games/lies_of_p.png">
+        <img src="eim-assets/img/games/lies_of_p.png" alt="P의 거짓 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">P의 거짓</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Voice</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="나이트크로우" data-dev="Wemade" data-work="다크 판타지 MMORPG의 전투 사운드 이펙트." data-img="eim-assets/img/games/nightcrow.jpg">
+        <img src="eim-assets/img/games/nightcrow.jpg" alt="나이트크로우 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">나이트크로우</div>
+          <div class="card-dev">Wemade</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="블레스" data-dev="NEOWIZ" data-work="차세대 MMORPG의 대규모 보스전 사운드 및 오케스트라 BGM." data-img="eim-assets/img/games/bless.jpg">
+        <img src="eim-assets/img/games/bless.jpg" alt="블레스 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">블레스</div>
+          <div class="card-dev">NEOWIZ</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="메이플스토리" data-dev="NEXON" data-work="20년간 함께한 라이브 서비스 게임. 시즌별 BGM, 이벤트 사운드." data-img="eim-assets/img/games/maplestory.jpg">
+        <img src="eim-assets/img/games/maplestory.jpg" alt="메이플스토리 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">메이플스토리</div>
+          <div class="card-dev">NEXON</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Event</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="쓰론 앤 리버티" data-dev="NC" data-work="차세대 MMORPG의 대규모 전투 및 환경 사운드 디자인." data-img="eim-assets/img/games/throne_liberty.png">
+        <img src="eim-assets/img/games/throne_liberty.png" alt="쓰론 앤 리버티 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">쓰론 앤 리버티</div>
+          <div class="card-dev">NC</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="포트리스사가" data-dev="Com2uS" data-work="전략 RPG의 전투 BGM 및 캐릭터 스킬 이펙트 사운드 디자인." data-img="eim-assets/img/games/fortress_saga_real.png">
+        <img src="eim-assets/img/games/fortress_saga_real.png" alt="포트리스사가 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">포트리스사가</div>
+          <div class="card-dev">Com2uS</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="아스텔리아" data-dev="Barunson" data-work="판타지 MMORPG의 오케스트라 BGM 작곡 및 전투 사운드 디자인." data-img="eim-assets/img/games/astellia.png">
+        <img src="eim-assets/img/games/astellia.png" alt="아스텔리아 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">아스텔리아</div>
+          <div class="card-dev">Barunson</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">Orchestral</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="데빌 갓: 삿갓" data-dev="VisualShower" data-work="무협 액션 RPG의 전체 사운드 프로덕션. 동양풍 BGM 및 전투 SFX." data-img="eim-assets/img/games/devil_satgat.jpg">
+        <img src="eim-assets/img/games/devil_satgat.jpg" alt="데빌 갓: 삿갓 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">데빌 갓: 삿갓</div>
+          <div class="card-dev">VisualShower</div>
+          <div class="card-tags"><span class="card-tag">BGM</span><span class="card-tag">SFX</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="림버스 컴퍼니" data-dev="Project Moon" data-work="가챠 RPG의 개성적 캐릭터 보이스 및 전투 BGM 제작." data-img="eim-assets/img/games/limbus.jpg">
+        <img src="eim-assets/img/games/limbus.jpg" alt="림버스 컴퍼니 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">림버스 컴퍼니</div>
+          <div class="card-dev">Project Moon</div>
+          <div class="card-tags"><span class="card-tag">Voice</span><span class="card-tag">BGM</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card" onclick="openLightbox(this)" data-title="크로스파이어" data-dev="Smilegate" data-work="글로벌 FPS의 총기 사운드 디자인, 맵 환경음, UI 사운드 프로덕션." data-img="eim-assets/img/games/crossfire.jpg">
+        <img src="eim-assets/img/games/crossfire.jpg" alt="크로스파이어 게임 오디오" loading="lazy">
+        <div class="portfolio-card-overlay">
+          <div class="card-title">크로스파이어</div>
+          <div class="card-dev">Smilegate</div>
+          <div class="card-tags"><span class="card-tag">SFX</span><span class="card-tag">Ambience</span></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
