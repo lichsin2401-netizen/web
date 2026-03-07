@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Studio EIM — V2 Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#ffffff;--offwhite:#fafafa;--light:#f5f5f3;
+  --dark:#111111;--dark2:#1a1a1a;
+  --text-1:#111111;--text-2:#555555;--text-3:#999999;
+  --accent:#111111;--accent-subtle:#333333;
+  --eim-red:#C82828;--eim-orange:#E87830;--eim-gold:#F0A830;
+  --border:#e0e0e0;--border-light:#ececec;
+  --radius:4px;--radius-md:8px;
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-body:'Inter','Noto Sans KR',sans-serif;
+  --font-kr:'Noto Sans KR','Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--text-1);background:var(--white);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--eim-orange);color:#fff}
+
+/* ═══ NAV ═══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:24px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+.nav.scrolled{background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);padding:16px 48px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo .logo-mark{width:32px;height:24px;flex-shrink:0}
+.nav-logo .logo-text{font-family:var(--font-display);font-size:1.5rem;font-weight:600;color:var(--dark);letter-spacing:0.5px}
+.nav-logo .logo-text em{font-style:italic;font-weight:400}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-links a{text-decoration:none;color:var(--text-3);font-size:0.82rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--dark)}
+.nav-links a.active::after{content:'';position:absolute;bottom:-6px;left:0;right:0;height:2px;background:var(--eim-orange)}
+.nav-lang{font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;border:1px solid var(--border);border-radius:20px;color:var(--text-3);cursor:pointer;transition:all .3s;font-weight:500}
+.nav-lang:hover{border-color:var(--dark);color:var(--dark)}
+/* Nav on hero (dark video bg) */
+.nav.nav-hero .nav-logo .logo-text{color:#fff}
+.nav.nav-hero .nav-links a{color:rgba(255,255,255,0.8)}
+.nav.nav-hero .nav-links a:hover,.nav.nav-hero .nav-links a.active{color:#fff}
+.nav.nav-hero .nav-lang{color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.3)}
+.nav.nav-hero .nav-lang:hover{color:#fff;border-color:rgba(255,255,255,0.6)}
+.nav.nav-hero .hamburger span{background:#fff}
+.nav.nav-hero.scrolled{background:rgba(10,10,10,0.92)}
+.nav.nav-hero.scrolled .nav-logo .logo-text{color:#fff}
+.nav.nav-hero.scrolled .nav-links a{color:rgba(255,255,255,0.8)}
+.nav.nav-hero.scrolled .nav-lang{color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.3)}
+
+/* ═══ SERVICE MODAL ═══ */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:2000;display:none;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .3s}
+.modal-overlay.open{display:flex;opacity:1}
+.modal-box{background:var(--white);max-width:720px;width:100%;max-height:85vh;overflow-y:auto;border-radius:var(--radius-md);position:relative;transform:translateY(20px);transition:transform .3s}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-close{position:sticky;top:0;right:0;z-index:10;display:flex;justify-content:flex-end;padding:20px 24px 0}
+.modal-close button{background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--text-3);transition:color .3s;line-height:1}
+.modal-close button:hover{color:var(--dark)}
+.modal-header{padding:0 40px 24px;border-bottom:1px solid var(--border-light)}
+.modal-header .num{font-family:var(--font-display);font-size:3rem;font-style:italic;color:var(--eim-orange);line-height:1}
+.modal-header h2{font-family:var(--font-display);font-size:1.8rem;font-weight:500;margin:8px 0 6px}
+.modal-header p{color:var(--text-2);font-size:0.9rem;line-height:1.6}
+.modal-body{padding:32px 40px 40px}
+.modal-body h3{font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin:0 0 16px;font-weight:500}
+.modal-body h3:not(:first-child){margin-top:32px}
+.process-steps{display:grid;gap:1px;background:var(--border);border:1px solid var(--border)}
+.process-step{background:var(--white);padding:20px 24px;display:flex;gap:16px;align-items:flex-start}
+.process-step .step-num{font-family:var(--font-display);font-size:1.3rem;font-style:italic;color:var(--eim-orange);flex-shrink:0;width:28px}
+.process-step .step-content{flex:1}
+.process-step .step-title{font-weight:500;font-size:0.92rem;margin-bottom:4px}
+.process-step .step-desc{font-size:0.84rem;color:var(--text-2);line-height:1.6}
+.faq-item{padding:16px 0;border-bottom:1px solid var(--border-light)}
+.faq-item:last-child{border:none}
+.faq-q{font-weight:500;font-size:0.9rem;color:var(--text-1);margin-bottom:6px}
+.faq-a{font-size:0.85rem;color:var(--text-2);line-height:1.7}
+.modal-cta{text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border-light)}
+.modal-cta a{display:inline-block;padding:12px 32px;background:var(--dark);color:#fff;font-size:0.82rem;text-transform:uppercase;letter-spacing:1.5px;font-weight:500;text-decoration:none;border-radius:var(--radius);transition:background .3s}
+.modal-cta a:hover{background:var(--eim-orange)}
+
+/* ═══ STUDIO GALLERY ═══ */
+.studio-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin:24px 0;border:1px solid var(--border)}
+.studio-gallery .gallery-item{position:relative;overflow:hidden;aspect-ratio:4/3}
+.studio-gallery .gallery-item.featured{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.studio-gallery .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.studio-gallery .gallery-item:hover img{transform:scale(1.05)}
+.studio-gallery .gallery-caption{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;background:linear-gradient(transparent,rgba(0,0,0,0.7));color:#fff}
+.studio-gallery .gallery-caption .cap-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:2px;opacity:0.7;margin-bottom:4px}
+.studio-gallery .gallery-caption .cap-title{font-size:0.88rem;font-weight:500}
+@media(max-width:768px){
+  .studio-gallery{grid-template-columns:1fr 1fr}
+  .studio-gallery .gallery-item.featured{grid-column:span 2}
+  .modal-header,.modal-body{padding-left:24px;padding-right:24px}
+}
+@media(max-width:480px){
+  .studio-gallery{grid-template-columns:1fr}
+  .studio-gallery .gallery-item.featured{grid-column:span 1}
+}
+
+/* ═══ MEDIA LINKS ═══ */
+.media-links{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
+.media-links a{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid var(--border);border-radius:var(--radius);font-size:0.82rem;font-weight:500;color:var(--text-2);text-decoration:none;transition:all .3s;letter-spacing:0.5px}
+.media-links a:hover{border-color:var(--eim-orange);color:var(--eim-orange)}
+.media-links a .icon{font-size:1.1rem}
+
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;gap:6px;cursor:pointer;padding:8px;z-index:1001}
+.hamburger span{width:22px;height:1.5px;background:var(--dark);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* Mobile Menu */
+.mobile-menu{position:fixed;top:0;right:-100%;width:100vw;height:100vh;background:var(--white);z-index:999;padding:120px 48px 48px;display:flex;flex-direction:column;gap:0;transition:right .5s cubic-bezier(.4,0,.2,1)}
+.mobile-menu.open{right:0}
+.mobile-menu a{text-decoration:none;color:var(--dark);font-family:var(--font-display);font-size:2.2rem;font-weight:500;padding:20px 0;border-bottom:1px solid var(--border-light);transition:color .3s}
+.mobile-menu a:hover{color:var(--text-3)}
+.mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.15);z-index:998;opacity:0;pointer-events:none;transition:opacity .4s}
+.mobile-overlay.open{opacity:1;pointer-events:all}
+
+/* ═══ PAGE SECTIONS ═══ */
+.page{display:none;min-height:100vh;padding-top:80px}
+.page.active{display:block;animation:fadeIn .6s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ═══ HERO ═══ */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:#0a0a0a;overflow:hidden}
+.hero-video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;transform:translate(-50%,-50%);object-fit:cover;z-index:0;opacity:0;transition:opacity 1.8s ease}
+.hero-video.loaded{opacity:1}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.25) 40%,rgba(0,0,0,0.55) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:860px;padding:40px}
+.hero h1{font-family:var(--font-display);font-size:clamp(3rem,7vw,5.5rem);font-weight:400;font-style:italic;color:#fff;line-height:1.08;margin-bottom:24px;letter-spacing:-0.5px;text-shadow:0 2px 40px rgba(0,0,0,0.3)}
+.hero p{color:rgba(255,255,255,0.82);font-size:1.05rem;letter-spacing:0.3px;margin-bottom:40px;font-weight:400;text-shadow:0 1px 12px rgba(0,0,0,0.3)}
+.hero-badge{display:inline-block;padding:8px 20px;border:1px solid rgba(255,255,255,0.3);border-radius:30px;color:rgba(255,255,255,0.85);font-size:0.72rem;margin-bottom:32px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:rgba(255,255,255,0.06)}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.6);font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:color .3s}
+.hero-scroll:hover{color:var(--eim-orange)}
+.hero-scroll-line{width:1px;height:40px;background:rgba(255,255,255,0.4);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:0.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.2)}}
+.hero-sound-toggle{position:absolute;bottom:32px;right:32px;z-index:3;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);background:rgba(0,0,0,0.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:rgba(255,255,255,0.8);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.hero-sound-toggle:hover{border-color:var(--eim-orange);color:var(--eim-orange)}
+.btn-primary{display:inline-block;padding:14px 36px;background:rgba(255,255,255,0.95);color:var(--dark);text-decoration:none;border-radius:var(--radius);font-size:0.82rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:all .3s;border:1px solid rgba(255,255,255,0.95)}
+.btn-primary:hover{background:var(--eim-orange);color:var(--white);border-color:var(--eim-orange)}
+.btn-outline{display:inline-block;padding:14px 36px;background:transparent;color:#fff;text-decoration:none;border-radius:var(--radius);font-size:0.82rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:all .3s;border:1px solid rgba(255,255,255,0.5)}
+.btn-outline:hover{background:var(--eim-orange);color:var(--white);border-color:var(--eim-orange)}
+
+/* ═══ SERVICE CARDS ═══ */
+.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;max-width:1400px;margin:0 auto}
+.service-card{position:relative;cursor:pointer;overflow:hidden;min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;padding:48px 36px}
+.service-card .card-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .8s cubic-bezier(.25,.1,.25,1);z-index:0}
+.service-card:hover .card-bg{transform:scale(1.08)}
+.service-card .card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.65) 70%,rgba(0,0,0,0.82) 100%);z-index:1;transition:background .5s}
+.service-card:hover .card-overlay{background:linear-gradient(180deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.55) 60%,rgba(0,0,0,0.75) 100%)}
+.service-card .card-content{position:relative;z-index:2}
+.service-card .label{font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:16px;font-weight:500;transition:color .4s}
+.service-card h3{font-family:var(--font-display);font-size:2rem;font-weight:500;margin-bottom:10px;font-style:italic;color:#fff;transition:transform .4s}
+.service-card:hover h3{transform:translateY(-4px)}
+.service-card p{color:rgba(255,255,255,0.7);font-size:0.88rem;line-height:1.7;max-width:280px;transition:color .4s}
+.service-card:hover p{color:rgba(255,255,255,0.9)}
+.service-card .arrow{position:absolute;bottom:48px;right:36px;color:var(--eim-orange);font-size:1.3rem;opacity:0;transition:all .4s;transform:translateX(-10px);z-index:2}
+.service-card:hover .arrow{opacity:1;transform:translateX(0)}
+.service-card:hover .label{color:var(--eim-orange)}
+.service-card::after{content:'';position:absolute;bottom:0;left:36px;right:36px;height:2px;background:var(--eim-orange);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.25,.1,.25,1);z-index:2}
+.service-card:hover::after{transform:scaleX(1)}
+
+/* ═══ CLIENTS ═══ */
+.clients-section{padding:80px 48px;text-align:center;border-top:1px solid var(--border-light)}
+.clients-section .label{font-size:0.72rem;text-transform:uppercase;letter-spacing:3px;color:var(--text-3);margin-bottom:40px;font-weight:500}
+.client-logos{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;align-items:center}
+.client-logos span{font-size:0.9rem;font-weight:500;color:var(--text-3);letter-spacing:1px}
+
+/* ═══ CTA ═══ */
+.cta-section{text-align:center;padding:120px 24px;background:var(--dark);color:var(--white)}
+.cta-section h2{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:400;font-style:italic;margin-bottom:16px}
+.cta-section p{color:rgba(255,255,255,0.45);margin-bottom:40px;font-size:0.95rem;letter-spacing:0.3px}
+.btn-cta-white{display:inline-block;padding:14px 36px;background:var(--white);color:var(--dark);text-decoration:none;border-radius:var(--radius);font-size:0.82rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:all .3s}
+.btn-cta-white:hover{background:var(--eim-orange);color:var(--white);border:1px solid var(--eim-orange)}
+
+/* ═══ SUB PAGES ═══ */
+.page-header{padding:140px 48px 72px;text-align:center;background:var(--white);border-bottom:1px solid var(--border-light)}
+.page-header h1{font-family:var(--font-display);font-size:clamp(2.4rem,5vw,4rem);font-weight:400;font-style:italic;letter-spacing:-0.3px}
+.page-header p{color:var(--text-3);margin-top:16px;font-size:0.95rem;letter-spacing:0.3px}
+
+.content-section{max-width:1100px;margin:0 auto;padding:72px 48px}
+.content-section h2{font-family:var(--font-display);font-size:2rem;font-weight:500;font-style:italic;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border-light)}
+.content-section p{color:var(--text-2);font-size:0.95rem;line-height:1.8;margin-bottom:20px}
+
+/* Placeholder */
+.placeholder{background:var(--offwhite);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:56px 32px;text-align:center;margin:24px 0;color:var(--text-3)}
+.placeholder .label{font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:8px;font-weight:500}
+.placeholder .desc{font-size:0.95rem;color:var(--text-2)}
+
+/* ═══ PORTFOLIO — YouTube Grid ═══ */
+.portfolio-filters{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap}
+.portfolio-filters button{padding:8px 20px;border:1px solid var(--border);background:transparent;color:var(--text-2);font-size:0.8rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;border-radius:var(--radius);cursor:pointer;transition:all .3s;font-family:var(--font-body)}
+.portfolio-filters button.active{background:var(--dark);color:var(--white);border-color:var(--dark)}
+.portfolio-filters button:hover:not(.active){border-color:var(--eim-orange);color:var(--eim-orange)}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;margin:32px 0}
+.video-card{background:var(--offwhite);border:1px solid var(--border-light);border-radius:var(--radius-md);overflow:hidden;transition:all .3s}
+.video-card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.08);transform:translateY(-2px)}
+.video-thumb{aspect-ratio:16/9;background:var(--dark);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background-size:cover;background-position:center}
+.video-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.5) 100%);transition:opacity .3s}
+.video-card:hover .video-thumb::after{opacity:.7}
+.video-thumb .play{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:transform .3s;position:relative;z-index:1}
+.video-card:hover .play{transform:scale(1.1);background:var(--eim-orange);color:var(--white)}
+.video-card{cursor:pointer}
+.video-info{padding:20px}
+.video-info h4{font-family:var(--font-display);font-size:1.2rem;font-weight:500;margin-bottom:4px}
+.video-info .tag{font-size:0.72rem;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:500}
+
+/* ═══ DEMO — Audio Player ═══ */
+.demo-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:40px}
+.demo-tabs button{padding:16px 28px;border:none;background:transparent;color:var(--text-3);font-size:0.82rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:var(--font-body);border-bottom:2px solid transparent;margin-bottom:-1px}
+.demo-tabs button.active{color:var(--dark);border-bottom-color:var(--eim-orange)}
+.demo-tabs button:hover:not(.active){color:var(--dark)}
+.demo-panel{display:none}
+.demo-panel.active{display:block}
+.audio-list{display:flex;flex-direction:column;gap:1px;background:var(--border-light)}
+.audio-item{display:flex;align-items:center;gap:20px;padding:20px 24px;background:var(--white);transition:background .3s;cursor:pointer}
+.audio-item:hover{background:var(--offwhite)}
+.audio-item .play-btn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--dark);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;transition:all .3s}
+.audio-item:hover .play-btn{background:var(--eim-orange);color:var(--white);border-color:var(--eim-orange)}
+.audio-item .info{flex:1}
+.audio-item .title{font-weight:500;font-size:0.95rem;margin-bottom:2px}
+.audio-item .meta{font-size:0.78rem;color:var(--text-3)}
+.audio-item .duration{font-size:0.82rem;color:var(--text-3);font-variant-numeric:tabular-nums}
+
+/* ═══ CONTACT — Miraval Style Forms ═══ */
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin:48px 0}
+.contact-type{background:var(--white);padding:48px 36px;text-align:center;cursor:pointer;transition:all .3s}
+.contact-type:hover,.contact-type.active{background:var(--offwhite)}
+.contact-type.active h3{color:var(--eim-orange)}
+.contact-type h3{font-family:var(--font-display);font-size:1.5rem;font-weight:500;font-style:italic;margin-bottom:4px}
+.contact-type p{font-size:0.82rem;color:var(--text-3)}
+.contact-form{max-width:640px;margin:0 auto;padding:48px 0}
+.form-group{margin-bottom:24px}
+.form-group label{display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-3);margin-bottom:8px;font-weight:500}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:14px 0;border:none;border-bottom:1px solid var(--border);font-size:0.95rem;font-family:var(--font-body);color:var(--text-1);background:transparent;transition:border-color .3s;outline:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-bottom-color:var(--eim-orange)}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+/* ═══ STATS BAR ═══ */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat-item{background:var(--white);padding:40px 24px;text-align:center}
+.stat-item .number{font-family:var(--font-display);font-size:2.8rem;font-weight:400;font-style:italic;line-height:1;color:var(--dark)}
+.stat-item:hover .number{color:var(--eim-orange);transition:color .3s}
+.stat-item .label{font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-3);margin-top:8px;font-weight:500}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--dark);color:rgba(255,255,255,0.4);padding:64px 48px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;font-size:0.85rem}
+.footer h4{color:var(--white);font-family:var(--font-display);font-size:1.2rem;font-weight:500;font-style:italic;margin-bottom:16px}
+.footer a{color:rgba(255,255,255,0.4);text-decoration:none;transition:color .3s}
+.footer a:hover{color:var(--white)}
+.footer-bottom{grid-column:1/-1;padding-top:32px;border-top:1px solid rgba(255,255,255,0.08);font-size:0.78rem;display:flex;justify-content:space-between}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .nav{padding:18px 24px}
+  .nav.scrolled{padding:14px 24px}
+  .service-grid{grid-template-columns:1fr}
+  .service-card{min-height:380px;padding:36px 28px}
+  .service-card .arrow{bottom:36px;right:28px}
+  .service-card::after{left:28px;right:28px}
+  .hero{min-height:100vh}
+  .hero-sound-toggle{bottom:20px;right:20px;width:38px;height:38px}
+  .hero-scroll{bottom:20px}
+  .page-header{padding:120px 24px 56px}
+  .content-section{padding:48px 24px}
+  .video-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .footer{grid-template-columns:1fr;gap:32px;padding:48px 24px}
+  .footer-bottom{flex-direction:column;gap:8px}
+  .demo-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .clients-section{padding:48px 24px}
+  .mobile-menu a{font-size:1.6rem}
+}
+@media(max-width:480px){
+  .hero h1{font-size:2.4rem}
+  .video-grid{grid-template-columns:1fr}
+  .stat-item .number{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav class="nav nav-hero" id="nav">
+  <a href="#" class="nav-logo" onclick="showPage('home')">
+    <svg class="logo-mark" viewBox="0 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 0L0 26h6L12 0H6z" fill="#C82828"/>
+      <path d="M15 0L9 26h6L21 0h-6z" fill="#E87830"/>
+      <path d="M24 0L18 26h6L30 0h-6z" fill="#F0A830"/>
+    </svg>
+    <span class="logo-text">Studio <em>EIM</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')" class="active" data-page="home">Home</a>
+    <a href="#" onclick="showPage('services')" data-page="services">Services</a>
+    <a href="#" onclick="showPage('portfolio')" data-page="portfolio">Portfolio</a>
+    <a href="#" onclick="showPage('demo')" data-page="demo">Demo</a>
+    <a href="#" onclick="showPage('studio')" data-page="studio">Studio</a>
+    <a href="#" onclick="showPage('contact')" data-page="contact">Contact</a>
+    <a href="#" onclick="showPage('about')" data-page="about">About</a>
+    <span class="nav-lang">KO ▾</span>
+  </div>
+  <div class="hamburger" id="burger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="overlay" onclick="toggleMobile()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home');toggleMobile()">Home</a>
+  <a href="#" onclick="showPage('services');toggleMobile()">Services</a>
+  <a href="#" onclick="showPage('portfolio');toggleMobile()">Portfolio</a>
+  <a href="#" onclick="showPage('demo');toggleMobile()">Demo</a>
+  <a href="#" onclick="showPage('studio');toggleMobile()">Studio</a>
+  <a href="#" onclick="showPage('contact');toggleMobile()">Contact</a>
+  <a href="#" onclick="showPage('about');toggleMobile()">About</a>
+  <a href="#" onclick="toggleMobile()" style="font-size:1rem;margin-top:24px;font-family:var(--font-body);color:var(--text-3);border:none">KO · EN · JA · ZH</a>
+</div>
+
+<!-- ═══ PAGE: HOME ═══ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" id="heroVideo">
+      <source src="video/hero-cinematic.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span style="display:inline-flex;gap:2px;margin-right:8px;vertical-align:middle"><span style="width:3px;height:12px;background:#C82828;display:inline-block;transform:skewX(-12deg)"></span><span style="width:3px;height:12px;background:#E87830;display:inline-block;transform:skewX(-12deg)"></span><span style="width:3px;height:12px;background:#F0A830;display:inline-block;transform:skewX(-12deg)"></span></span>Since 1999 — Game Audio Production</div>
+      <h1>소리로 세계를<br>창조합니다</h1>
+      <p>27년간 1,000개 이상의 게임 프로젝트 사운드를 함께 만들었습니다</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="#" class="btn-primary" onclick="showPage('portfolio')">Portfolio</a>
+        <a href="#" class="btn-outline" onclick="showPage('contact')">Contact Us</a>
+      </div>
+    </div>
+    <div class="hero-scroll" onclick="showPage('services')">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+    <button class="hero-sound-toggle" id="heroSoundBtn" onclick="toggleHeroSound()" title="사운드 켜기">🔇</button>
+  </section>
+
+  <div class="service-grid">
+    <div class="service-card" onclick="openServiceModal('music')">
+      <div class="card-bg" style="background-image:url('img/studio/service-music.jpg')"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <div class="label">01</div>
+        <h3>Music</h3>
+        <p>게임의 세계관을 완성하는 오리지널 스코어 및 인터랙티브 사운드트랙</p>
+      </div>
+      <span class="arrow">→</span>
+    </div>
+    <div class="service-card" onclick="openServiceModal('sound')">
+      <div class="card-bg" style="background-image:url('img/studio/service-sounddesign.jpg')"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <div class="label">02</div>
+        <h3>Sound Design</h3>
+        <p>몰입감을 극대화하는 효과음, 앰비언스, 인터랙티브 오디오 시스템</p>
+      </div>
+      <span class="arrow">→</span>
+    </div>
+    <div class="service-card" onclick="openServiceModal('voice')">
+      <div class="card-bg" style="background-image:url('img/studio/service-voice.jpg')"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <div class="label">03</div>
+        <h3>Voice</h3>
+        <p>캐릭터에 생명을 불어넣는 다국어 보이스 캐스팅 및 레코딩</p>
+      </div>
+      <span class="arrow">→</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="number">1,000+</div><div class="label">Projects</div></div>
+    <div class="stat-item"><div class="number">27</div><div class="label">Years</div></div>
+    <div class="stat-item"><div class="number">17</div><div class="label">Game Awards</div></div>
+    <div class="stat-item"><div class="number">30%</div><div class="label">Top Game Titles</div></div>
+  </div>
+
+  <section class="clients-section">
+    <div class="label">Trusted Partners</div>
+    <div class="client-logos">
+      <span>NEXON</span><span>NCSOFT</span><span>NETMARBLE</span><span>KRAFTON</span>
+      <span>SMILEGATE</span><span>PEARL ABYSS</span><span>SUPERSTORM</span>
+      <span>JOYCITY</span><span>DEVCAT</span>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>다음 프로젝트, 함께 만들어요</h2>
+    <p>Music · Sound · Voice — 원스톱 사운드 파트너</p>
+    <a href="#" class="btn-cta-white" onclick="showPage('contact')">Get in Touch</a>
+  </section>
+
+</div>
+
+<!-- ═══ PAGE: SERVICES ═══ -->
+<div class="page" id="page-services">
+  <div class="page-header">
+    <h1>Our Services</h1>
+    <p>Music · Sound Design · Voice — 원스톱 게임 오디오 프로덕션</p>
+  </div>
+  <div class="content-section">
+    <h2>Music Production</h2>
+    <p>게임의 세계관을 완성하는 오리지널 스코어. 오케스트라, 일렉트로닉, 하이브리드 등 모든 장르의 인터랙티브 사운드트랙을 제작합니다. AAA 타이틀부터 인디 게임까지, 프로젝트의 규모와 성격에 맞는 최적의 음악을 제공합니다.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);margin:24px 0;border:1px solid var(--border)">
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">BGM</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">인게임 배경음악 — 필드, 던전, 마을, 전투 등 모든 씬에 최적화된 루핑 BGM</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Interactive Score</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">Wwise/FMOD 기반 적응형 음악 시스템 — 플레이어 행동에 따라 실시간 반응하는 스코어</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Title Theme</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">게임 타이틀 메인 테마곡 — 오케스트라 실연주 녹음부터 전자 음악 프로덕션까지</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Trailer</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">시네마틱 트레일러, PV, 론칭 영상을 위한 임팩트 있는 오리지널 음악</p></div>
+    </div>
+
+    <h2>Sound Design</h2>
+    <p>몰입감을 극대화하는 효과음, 앰비언스, 인터랙티브 오디오 시스템을 설계합니다. Wwise, FMOD 등 미들웨어 통합 경험으로 게임 엔진과 완벽하게 연동됩니다.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);margin:24px 0;border:1px solid var(--border)">
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">SFX</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">전투, 스킬, UI, 환경 등 전 카테고리 효과음 디자인 및 커스텀 제작</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Ambience</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">필드 환경음, 공간음향 설계 — 현장 녹음과 합성 사운드의 레이어링</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Middleware</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">Wwise, FMOD, Unity/Unreal 엔진 통합 — 최적화된 오디오 파이프라인 구축</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Interactive</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">플레이어 액션 기반 실시간 사운드 반응 시스템 설계 및 구현</p></div>
+    </div>
+
+    <h2>Voice Production</h2>
+    <p>캐릭터에 생명을 불어넣는 다국어 보이스 캐스팅 및 레코딩. 한국어, 영어, 일본어, 중국어 등 다양한 언어의 전문 성우 네트워크를 보유하고 있습니다.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);margin:24px 0;border:1px solid var(--border)">
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Casting</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">KO · EN · JP · ZH 등 다국어 전문 성우 캐스팅 및 오디션 진행</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Recording</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">자체 보이스 부스에서 프로페셔널 레코딩 및 실시간 디렉팅</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Post</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">편집, 노이즈 제거, 이펙트 처리, 볼륨 노멀라이징 등 후반 작업</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Localization</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">글로벌 현지화 — 번역, 문화 컨설팅, 다국어 보이스 프로덕션 일괄 진행</p></div>
+    </div>
+
+    <h2>AI-Powered Audio</h2>
+    <p>AI 기술을 활용한 효율적인 오디오 프로덕션 파이프라인. 전통적 제작 방식과 AI를 결합하여 최적의 결과물을 제공합니다.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);margin:24px 0;border:1px solid var(--border)">
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">AI Voice</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">AI 음성 합성 기반 NPC 대사 자동 생성 — 대량 보이스 에셋의 효율적 제작</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">AI Sound</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">프로시저럴 사운드 생성 — 환경음, 앰비언스의 AI 기반 자동 변주</p></div>
+      <div style="background:var(--white);padding:32px 28px"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin-bottom:10px;font-weight:500">Workflow</div><p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text-2)">AI 워크플로우 자동화 — 분류, 태깅, 노멀라이징 등 반복 공정 효율화</p></div>
+    </div>
+
+    <h2>Consulting</h2>
+    <p>게임 오디오 전략 수립부터 기술 자문까지. 27년의 경험을 바탕으로 프로젝트에 최적화된 오디오 솔루션을 제안합니다. 장르 분석, 벤치마크 리뷰, 예산 및 일정 최적화, 미들웨어 선정 등 프로젝트 초기 단계부터 함께합니다.</p>
+  </div>
+</div>
+
+<!-- ═══ PAGE: PORTFOLIO ═══ -->
+<div class="page" id="page-portfolio">
+  <div class="page-header">
+    <h1>Portfolio</h1>
+    <p>1,000+ 게임 프로젝트의 사운드를 함께 만들었습니다</p>
+  </div>
+  <div class="content-section">
+    <div class="portfolio-filters">
+      <button class="active" onclick="filterPortfolio('all',this)">All</button>
+      <button onclick="filterPortfolio('game',this)">Game</button>
+      <button onclick="filterPortfolio('non-game',this)">Non-Game</button>
+      <button onclick="filterPortfolio('ai',this)">AI</button>
+    </div>
+    <div class="media-links">
+      <a href="https://www.youtube.com/@StudioEIM" target="_blank"><span class="icon">▶</span> YouTube Channel</a>
+      <a href="https://soundcloud.com/studioeim" target="_blank"><span class="icon">♪</span> SoundCloud</a>
+      <a href="https://open.spotify.com/artist/0sn0vhYNLgP3DjxS8SpuQO" target="_blank"><span class="icon">●</span> Spotify</a>
+    </div>
+
+    <div class="video-grid">
+      <div class="video-card" data-cat="game" onclick="openYT('MapleStory+official+trailer')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/oWBDVo-BTGI/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">NEXON · RPG</div><h4>메이플스토리</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('Blade+and+Soul+official+cinematic+trailer')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/VHSJeBJGRs8/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">NCSOFT · MMORPG</div><h4>블레이드 & 소울</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('Lineage+W+official+cinematic+trailer')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/rMQ2a8rmELg/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">NCSOFT · MMORPG</div><h4>리니지 W</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('Blue+Archive+official+trailer')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/BBv2LjMR4Bg/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">NEXON · RPG</div><h4>블루 아카이브</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('clafwd_8_YI','id')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/clafwd_8_YI/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">NEOWIZ · Action RPG</div><h4>P의 거짓 (Lies of P)</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('Summoners+War+official+cinematic+trailer')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/S3OmMOGA-us/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">COM2US · RPG</div><h4>서머너즈 워</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('KKZ_nIeVn1Q','id')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/KKZ_nIeVn1Q/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">NEXON · MMORPG</div><h4>마비노기 영웅전</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('Raven+Netmarble+official+trailer')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/YqHuM5_y8Lg/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">NETMARBLE · Action RPG</div><h4>레이븐</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('Durango+Wild+Lands+official+trailer')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/PugWk1T1Qh8/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">NEXON · Open World</div><h4>야생의 땅: 듀랑고</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('Uncharted+Waters+Origin+official+trailer')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/5rjSLkb9Xww/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">LINE GAMES · Adventure</div><h4>대항해시대 오리진</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('Night+Crows+official+cinematic+trailer+Wemade')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/w5rYBAzGJFc/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">MAD ENGINE · MMORPG</div><h4>나이트 크로우</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('V4+Nexon+MMORPG+official+trailer')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/a4AxuU-d-v4/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">NEXON · MMORPG</div><h4>V4</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('트릭컬리바이브+공식+트레일러')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/XlR4GD7t1Xc/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">EPID GAMES · RPG</div><h4>트릭컬 리바이브</h4></div>
+      </div>
+      <div class="video-card" data-cat="game" onclick="openYT('SUN+online+WEBZEN+official+trailer')">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/Qz6kVPxREhE/hqdefault.jpg')"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">WEBZEN · MMORPG</div><h4>SUN 온라인</h4></div>
+      </div>
+      <div class="video-card" data-cat="non-game" onclick="openYT('','channel')">
+        <div class="video-thumb"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">Non-Game · Branding</div><h4>브랜드 사운드 프로젝트</h4></div>
+      </div>
+      <div class="video-card" data-cat="ai" onclick="openYT('','channel')">
+        <div class="video-thumb"><span class="play">▶</span></div>
+        <div class="video-info"><div class="tag">AI · Experimental</div><h4>AI 오디오 쇼케이스</h4></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: DEMO ═══ -->
+<div class="page" id="page-demo">
+  <div class="page-header">
+    <h1>Audio Demo</h1>
+    <p>Studio EIM의 사운드를 직접 들어보세요</p>
+  </div>
+  <div class="content-section">
+    <div class="demo-tabs">
+      <button class="active" onclick="showDemoTab('music',this)">Music</button>
+      <button onclick="showDemoTab('sfx',this)">Sound Effects</button>
+      <button onclick="showDemoTab('voice',this)">Voice</button>
+      <button onclick="showDemoTab('ai',this)">AI Results</button>
+    </div>
+    <div class="media-links">
+      <a href="https://www.youtube.com/@StudioEIM" target="_blank"><span class="icon">▶</span> YouTube Channel</a>
+      <a href="https://soundcloud.com/studioeim" target="_blank"><span class="icon">♪</span> SoundCloud</a>
+      <a href="https://open.spotify.com/artist/0sn0vhYNLgP3DjxS8SpuQO" target="_blank"><span class="icon">●</span> Spotify</a>
+    </div>
+
+    <!-- Music Tab -->
+    <div class="demo-panel active" id="demo-music">
+      <div class="audio-list">
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">Epic Orchestra — Fantasy RPG Main Theme</div><div class="meta">Orchestra · Full Score</div></div>
+          <div class="duration">3:42</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">Dark Ambient — Horror Game Atmosphere</div><div class="meta">Electronic · Ambient</div></div>
+          <div class="duration">4:15</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">Electronic Hybrid — Action Sequence</div><div class="meta">Hybrid · Cinematic</div></div>
+          <div class="duration">2:58</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">Peaceful Village — Casual Game BGM</div><div class="meta">Acoustic · Lighthearted</div></div>
+          <div class="duration">3:21</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">Battle Theme — MMORPG Boss Fight</div><div class="meta">Orchestra · High Intensity</div></div>
+          <div class="duration">4:07</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SFX Tab -->
+    <div class="demo-panel" id="demo-sfx">
+      <div class="audio-list">
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">Weapon Impact Collection</div><div class="meta">SFX · Combat</div></div>
+          <div class="duration">1:20</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">UI/UX Sound Pack</div><div class="meta">SFX · Interface</div></div>
+          <div class="duration">0:45</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">Environment Ambience — Forest</div><div class="meta">Ambience · Nature</div></div>
+          <div class="duration">5:00</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">Magic Spell Effects</div><div class="meta">SFX · Fantasy</div></div>
+          <div class="duration">1:52</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voice Tab -->
+    <div class="demo-panel" id="demo-voice">
+      <div class="audio-list">
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">NPC 대사 — 한국어 남성</div><div class="meta">Korean · Male · Narrator</div></div>
+          <div class="duration">1:15</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">Battle Shouts — English Female</div><div class="meta">English · Female · Action</div></div>
+          <div class="duration">0:48</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">キャラクターボイス — 日本語女性</div><div class="meta">Japanese · Female · Character</div></div>
+          <div class="duration">1:30</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">角色配音 — 中文男性</div><div class="meta">Chinese · Male · Character</div></div>
+          <div class="duration">1:05</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Tab -->
+    <div class="demo-panel" id="demo-ai">
+      <div class="audio-list">
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">AI Voice — NPC 대화 자동 생성</div><div class="meta">AI · Voice Synthesis</div></div>
+          <div class="duration">2:10</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">AI Sound — 프로시저럴 앰비언스</div><div class="meta">AI · Generated Ambience</div></div>
+          <div class="duration">3:00</div>
+        </div>
+        <div class="audio-item">
+          <div class="play-btn">▶</div>
+          <div class="info"><div class="title">AI Music — 적응형 배경음악</div><div class="meta">AI · Adaptive Score</div></div>
+          <div class="duration">2:45</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PAGE: STUDIO ═══ -->
+<div class="page" id="page-studio">
+  <div class="page-header">
+    <h1>Our Studio</h1>
+    <p>잠실 HQ · 성수 Wave Forge — 두 곳의 프로페셔널 스튜디오</p>
+  </div>
+  <div class="content-section">
+    <h2>Studio Gallery</h2>
+    <div class="studio-gallery">
+      <div class="gallery-item featured">
+        <img src="img/studio/control-room-main.jpg" alt="Studio EIM 메인 컨트롤룸 — 믹싱 데스크와 모니터 스피커" loading="lazy">
+        <div class="gallery-caption"><div class="cap-label">Main Control Room</div><div class="cap-title">잠실 HQ · Studio A</div></div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/studio/recording-booth.jpg" alt="Studio EIM 보이스 레코딩 부스 — 마이크와 어쿠스틱 패널" loading="lazy">
+        <div class="gallery-caption"><div class="cap-label">Recording Booth</div><div class="cap-title">보이스 레코딩 부스</div></div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/studio/control-room-wide.jpg" alt="Studio EIM 컨트롤룸 와이드 뷰 — 모니터와 EIM 로고" loading="lazy">
+        <div class="gallery-caption"><div class="cap-label">Control Room</div><div class="cap-title">믹싱 · 마스터링 스위트</div></div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/studio/control-room-desk.jpg" alt="Studio EIM 작업 데스크 — 레코딩 부스 유리문" loading="lazy">
+        <div class="gallery-caption"><div class="cap-label">Wave Forge</div><div class="cap-title">성수 스튜디오</div></div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/studio/control-room-angle.jpg" alt="Studio EIM 스튜디오 — 디퓨저와 어쿠스틱 처리" loading="lazy">
+        <div class="gallery-caption"><div class="cap-label">Studio B</div><div class="cap-title">프로덕션 스위트</div></div>
+      </div>
+    </div>
+
+    <h2>Location</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-top:24px">
+      <div style="background:var(--offwhite);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:32px">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text-3);margin-bottom:16px;font-weight:500">Jamsil HQ</div>
+        <p style="font-size:0.95rem;line-height:1.8;color:var(--text-2);margin:0">
+          서울특별시 송파구 석촌동 156, 2F<br>
+          <span style="font-size:0.82rem;color:var(--text-3)">2호선 잠실역 8분 · 수인분당선 석촌역 5분</span><br>
+          <span style="font-size:0.82rem;color:var(--text-3)">02-412-6430 · 09:30–18:30</span>
+        </p>
+      </div>
+      <div style="background:var(--offwhite);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:32px">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text-3);margin-bottom:16px;font-weight:500">Seongsu Wave Forge</div>
+        <p style="font-size:0.95rem;line-height:1.8;color:var(--text-2);margin:0">
+          서울특별시 성동구 뚝섬로1길 25, 한라에코밸리 B-101<br>
+          <span style="font-size:0.82rem;color:var(--text-3)">2호선 뚝섬역 5분 · 수인분당선 서울숲역 3분</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: CONTACT ═══ -->
+<div class="page" id="page-contact">
+  <div class="page-header">
+    <h1>Contact</h1>
+    <p>프로젝트 문의부터 일반 질문까지, 편하게 연락하세요</p>
+  </div>
+  <div class="content-section" style="max-width:1200px">
+
+    <div class="contact-grid">
+      <div class="contact-type active" onclick="showContactForm('production',this)">
+        <h3>Production</h3>
+        <p>프로젝트 제작 문의</p>
+      </div>
+      <div class="contact-type" onclick="showContactForm('booking',this)">
+        <h3>Booking</h3>
+        <p>스튜디오 예약</p>
+      </div>
+      <div class="contact-type" onclick="showContactForm('general',this)">
+        <h3>General</h3>
+        <p>일반 문의 · 언론</p>
+      </div>
+    </div>
+
+    <div class="contact-form" id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="성함">
+        </div>
+        <div class="form-group">
+          <label>Company</label>
+          <input type="text" placeholder="회사명">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="이메일 주소">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="연락처 (선택)">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <select id="contactSubject">
+          <option value="">— 문의 유형 선택 —</option>
+          <option>게임 음악 제작</option>
+          <option>사운드 디자인</option>
+          <option>보이스 프로덕션</option>
+          <option>AI 오디오</option>
+          <option>컨설팅</option>
+          <option>기타</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="프로젝트 내용을 간단히 설명해주세요"></textarea>
+      </div>
+      <div style="text-align:center;margin-top:32px">
+        <a href="mailto:contact@eim.kr" class="btn-primary" style="cursor:pointer">Send Message</a>
+      </div>
+    </div>
+
+    <!-- Office Locations -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1px;background:var(--border);margin:40px 0;border:1px solid var(--border)">
+      <div style="background:var(--white);padding:36px 28px">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text-3);margin-bottom:16px;font-weight:500">HQ · Jamsil</div>
+        <p style="margin:0 0 8px;font-size:0.95rem;font-weight:500;color:var(--text-1)">잠실 본사</p>
+        <p style="margin:0 0 4px;font-size:0.88rem;line-height:1.7;color:var(--text-2)">서울특별시 송파구 석촌동 156, 2F</p>
+        <p style="margin:0 0 16px;font-size:0.82rem;color:var(--text-3)">05610</p>
+        <div style="font-size:0.85rem;color:var(--text-2)">
+          <span style="color:var(--text-3)">Tel</span> <a href="tel:02-412-6430" style="color:var(--text-1);font-weight:500">02-412-6430</a>
+        </div>
+      </div>
+      <div style="background:var(--white);padding:36px 28px">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text-3);margin-bottom:16px;font-weight:500">Studio · Seongsu</div>
+        <p style="margin:0 0 8px;font-size:0.95rem;font-weight:500;color:var(--text-1)">성수 Wave Forge</p>
+        <p style="margin:0 0 4px;font-size:0.88rem;line-height:1.7;color:var(--text-2)">서울특별시 성동구 뚝섬로1길 25, 한라에코밸리 B-101</p>
+        <p style="margin:0 0 16px;font-size:0.82rem;color:var(--text-3)">04778</p>
+        <div style="font-size:0.85rem;color:var(--text-2)">
+          <span style="color:var(--text-3)">Email</span> <a href="mailto:contact@eim.kr" style="color:var(--text-1);font-weight:500">contact@eim.kr</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business Hours & Direct Contact -->
+    <div style="text-align:center;padding:40px 0;color:var(--text-3);font-size:0.9rem">
+      <p style="margin:0 0 8px"><span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;font-weight:500">Business Hours</span></p>
+      <p style="margin:0 0 20px;font-size:0.95rem;color:var(--text-2)">월–금 09:30 — 18:30 (KST)</p>
+      <p style="margin:0">직접 연락: <a href="mailto:contact@eim.kr" style="color:var(--dark);font-weight:500">contact@eim.kr</a> · <a href="tel:02-412-6430" style="color:var(--dark);font-weight:500">02-412-6430</a></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PAGE: ABOUT ═══ -->
+<div class="page" id="page-about">
+  <div class="page-header">
+    <h1>About Studio EIM</h1>
+    <p>1999년부터 게임 오디오의 새로운 기준을 만들어왔습니다</p>
+  </div>
+  <div class="content-section">
+    <h2>Who We Are</h2>
+    <p>Studio EIM은 1999년 설립된 한국 최대의 게임 오디오 프로덕션 하우스입니다. "귀사의 게임에 날개를 달아드립니다" — 좋은 사운드가 유저의 충성도를 극대화한다는 신념으로 27년간 그 믿음을 증명해왔습니다. NEXON, NCSOFT, NETMARBLE 등 국내외 주요 퍼블리셔와 1,000개 이상의 프로젝트를 성공적으로 완수했습니다.</p>
+
+    <h2>Why EIM</h2>
+    <p>27년의 경험에서 나온 다섯 가지 핵심 가치가 Studio EIM을 정의합니다.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);margin:24px 0;border:1px solid var(--border)">
+      <div style="background:var(--white);padding:36px 28px;text-align:center">
+        <div style="font-family:var(--font-display);font-size:2.4rem;font-style:italic;color:var(--eim-orange);margin-bottom:8px">01</div>
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text-3);margin-bottom:12px;font-weight:500">안정성</div>
+        <p style="margin:0;font-size:0.88rem;line-height:1.7;color:var(--text-2)">풍부한 경험으로 어떠한 장르에 대해서도 모두 대응 가능합니다</p>
+      </div>
+      <div style="background:var(--white);padding:36px 28px;text-align:center">
+        <div style="font-family:var(--font-display);font-size:2.4rem;font-style:italic;color:var(--eim-orange);margin-bottom:8px">02</div>
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text-3);margin-bottom:12px;font-weight:500">만족감</div>
+        <p style="margin:0;font-size:0.88rem;line-height:1.7;color:var(--text-2)">업계 최고의 퀄리티로 사후 만족도가 높습니다</p>
+      </div>
+      <div style="background:var(--white);padding:36px 28px;text-align:center">
+        <div style="font-family:var(--font-display);font-size:2.4rem;font-style:italic;color:var(--eim-orange);margin-bottom:8px">03</div>
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text-3);margin-bottom:12px;font-weight:500">책임감</div>
+        <p style="margin:0;font-size:0.88rem;line-height:1.7;color:var(--text-2)">만족하실 때까지 무제한으로 수정해드립니다</p>
+      </div>
+      <div style="background:var(--white);padding:36px 28px;text-align:center">
+        <div style="font-family:var(--font-display);font-size:2.4rem;font-style:italic;color:var(--eim-orange);margin-bottom:8px">04</div>
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text-3);margin-bottom:12px;font-weight:500">몰입감</div>
+        <p style="margin:0;font-size:0.88rem;line-height:1.7;color:var(--text-2)">단순히 채우는 사운드가 아닌, 즐기고 몰입할 수 있는 사운드를 제작합니다</p>
+      </div>
+      <div style="background:var(--white);padding:36px 28px;text-align:center">
+        <div style="font-family:var(--font-display);font-size:2.4rem;font-style:italic;color:var(--eim-orange);margin-bottom:8px">05</div>
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text-3);margin-bottom:12px;font-weight:500">신뢰감</div>
+        <p style="margin:0;font-size:0.88rem;line-height:1.7;color:var(--text-2)">대한민국 게임대상, 경콘진, 한콘진, 게임 개발자 협회 등과의 협업 및 수상 경력</p>
+      </div>
+    </div>
+
+    <h2>Awards</h2>
+    <p>대한민국 게임대상 17회 수상 — 사운드 부문 6회 수상을 포함, 한국 게임 오디오 분야 최다 수상 기록을 보유하고 있습니다.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border);margin:24px 0;border:1px solid var(--border)">
+      <div style="background:var(--white);padding:24px 28px;display:flex;align-items:center;gap:20px">
+        <div style="font-family:var(--font-display);font-size:1.6rem;font-style:italic;color:var(--eim-orange);flex-shrink:0;width:48px;text-align:center">2024</div>
+        <div><div style="font-weight:500;font-size:0.95rem">트릭컬 리바이브</div><div style="font-size:0.82rem;color:var(--text-3)">대한민국 게임대상 우수상</div></div>
+      </div>
+      <div style="background:var(--white);padding:24px 28px;display:flex;align-items:center;gap:20px">
+        <div style="font-family:var(--font-display);font-size:1.6rem;font-style:italic;color:var(--eim-orange);flex-shrink:0;width:48px;text-align:center">2023</div>
+        <div><div style="font-weight:500;font-size:0.95rem">P의 거짓 (Lies of P)</div><div style="font-size:0.82rem;color:var(--text-3)">대상 · 인기게임상 · 사운드부문</div></div>
+      </div>
+      <div style="background:var(--white);padding:24px 28px;display:flex;align-items:center;gap:20px">
+        <div style="font-family:var(--font-display);font-size:1.6rem;font-style:italic;color:var(--eim-orange);flex-shrink:0;width:48px;text-align:center">2023</div>
+        <div><div style="font-weight:500;font-size:0.95rem">나이트 크로우</div><div style="font-size:0.82rem;color:var(--text-3)">대한민국 게임대상 우수상</div></div>
+      </div>
+      <div style="background:var(--white);padding:24px 28px;display:flex;align-items:center;gap:20px">
+        <div style="font-family:var(--font-display);font-size:1.6rem;font-style:italic;color:var(--eim-orange);flex-shrink:0;width:48px;text-align:center">2022</div>
+        <div><div style="font-weight:500;font-size:0.95rem">대항해시대 오리진</div><div style="font-size:0.82rem;color:var(--text-3)">최우수상 · 사운드부문</div></div>
+      </div>
+      <div style="background:var(--white);padding:24px 28px;display:flex;align-items:center;gap:20px">
+        <div style="font-family:var(--font-display);font-size:1.6rem;font-style:italic;color:var(--eim-orange);flex-shrink:0;width:48px;text-align:center">2018</div>
+        <div><div style="font-weight:500;font-size:0.95rem">야생의 땅: 듀랑고</div><div style="font-size:0.82rem;color:var(--text-3)">대한민국 게임대상 최우수상</div></div>
+      </div>
+      <div style="background:var(--white);padding:24px 28px;display:flex;align-items:center;gap:20px">
+        <div style="font-family:var(--font-display);font-size:1.6rem;font-style:italic;color:var(--eim-orange);flex-shrink:0;width:48px;text-align:center">2015</div>
+        <div><div style="font-weight:500;font-size:0.95rem">레이븐</div><div style="font-size:0.82rem;color:var(--text-3)">대상 · 사운드부문</div></div>
+      </div>
+      <div style="background:var(--white);padding:24px 28px;display:flex;align-items:center;gap:20px">
+        <div style="font-family:var(--font-display);font-size:1.6rem;font-style:italic;color:var(--eim-orange);flex-shrink:0;width:48px;text-align:center">2010</div>
+        <div><div style="font-weight:500;font-size:0.95rem">마비노기 영웅전</div><div style="font-size:0.82rem;color:var(--text-3)">대상 · 사운드부문</div></div>
+      </div>
+      <div style="background:var(--white);padding:24px 28px;display:flex;align-items:center;gap:20px">
+        <div style="font-family:var(--font-display);font-size:1.6rem;font-style:italic;color:var(--eim-orange);flex-shrink:0;width:48px;text-align:center">2006</div>
+        <div><div style="font-weight:500;font-size:0.95rem">SUN 온라인</div><div style="font-size:0.82rem;color:var(--text-3)">사운드부문</div></div>
+      </div>
+    </div>
+
+    <h2>Global Network</h2>
+    <p>10개 이상의 언어를 지원하는 글로벌 사운드 프로덕션 네트워크. 한국, 일본, 중국, 미국, 유럽 전역의 전문가들과 협업합니다.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--border);margin:24px 0;border:1px solid var(--border)">
+      <div style="background:var(--white);padding:24px 16px;text-align:center"><div style="font-size:1.4rem;margin-bottom:4px">🇰🇷</div><div style="font-size:0.82rem;font-weight:500">한국어</div></div>
+      <div style="background:var(--white);padding:24px 16px;text-align:center"><div style="font-size:1.4rem;margin-bottom:4px">🇺🇸</div><div style="font-size:0.82rem;font-weight:500">English</div></div>
+      <div style="background:var(--white);padding:24px 16px;text-align:center"><div style="font-size:1.4rem;margin-bottom:4px">🇯🇵</div><div style="font-size:0.82rem;font-weight:500">日本語</div></div>
+      <div style="background:var(--white);padding:24px 16px;text-align:center"><div style="font-size:1.4rem;margin-bottom:4px">🇨🇳</div><div style="font-size:0.82rem;font-weight:500">中文</div></div>
+      <div style="background:var(--white);padding:24px 16px;text-align:center"><div style="font-size:1.4rem;margin-bottom:4px">🇩🇪</div><div style="font-size:0.82rem;font-weight:500">Deutsch</div></div>
+      <div style="background:var(--white);padding:24px 16px;text-align:center"><div style="font-size:1.4rem;margin-bottom:4px">🇪🇸</div><div style="font-size:0.82rem;font-weight:500">Español</div></div>
+      <div style="background:var(--white);padding:24px 16px;text-align:center"><div style="font-size:1.4rem;margin-bottom:4px">🇫🇷</div><div style="font-size:0.82rem;font-weight:500">Français</div></div>
+      <div style="background:var(--white);padding:24px 16px;text-align:center"><div style="font-size:1.4rem;margin-bottom:4px">🇮🇹</div><div style="font-size:0.82rem;font-weight:500">Italiano</div></div>
+      <div style="background:var(--white);padding:24px 16px;text-align:center"><div style="font-size:1.4rem;margin-bottom:4px">🇧🇷</div><div style="font-size:0.82rem;font-weight:500">Português</div></div>
+      <div style="background:var(--white);padding:24px 16px;text-align:center"><div style="font-size:1.4rem;margin-bottom:4px">🇵🇱</div><div style="font-size:0.82rem;font-weight:500">Polski</div></div>
+    </div>
+
+    <!-- ═══ TESTIMONIALS ═══ -->
+    <h2 style="margin-top:56px">Client Testimonials</h2>
+    <p>게이머와 개발사가 전하는 Studio EIM의 사운드.</p>
+
+    <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin:32px 0 16px;font-weight:500">Gamer Reviews</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;background:var(--border);border:1px solid var(--border)">
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"역시 스튜디오 EIM만한 곳이 없음. 음악 하나로 게임의 몰입도를 수십 배 이상 끌어올림"</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 게이머 리뷰</div>
+      </div>
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"노래 개좋네 하고 찾아볼 때마다 도착하는 곳이 여기야.. EIM.."</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 게이머 리뷰</div>
+      </div>
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"브금 때문에 수년 동안 금지 못하고 있습니다. 사랑합니다. EIM"</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 게이머 리뷰</div>
+      </div>
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"이 노래 듣고 다시 마영전하고 있어요 미치겠네..."</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 마비노기 영웅전 유저</div>
+      </div>
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"스토리 따라서 가다 보면 이 장소가 가지는 의미와 맥을 잘 이해하는데, 그 미묘한 감정들을 잘 표현했습니다"</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 게이머 리뷰</div>
+      </div>
+    </div>
+
+    <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--eim-orange);margin:40px 0 16px;font-weight:500">Developer Feedback</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;background:var(--border);border:1px solid var(--border)">
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"보내주신 완성본 전부 만족스럽습니다. 팀원들이 모두 EIM의 실력에 감탄을 금치 못했습니다"</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 게임 개발사</div>
+      </div>
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"정말 마음에 들어요! 추가적인 수정 없이 이대로 받고 싶습니다"</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 게임 개발사</div>
+      </div>
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"세 곡이 다 너무 좋아서 어떤 곡을 해야 할지 기분 좋게 고민을 했던 것 같습니다"</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 게임 개발사</div>
+      </div>
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"EIM의 음악 퀄리티 덕에 저희 게임이 한 층 업그레이드 되어, 완성도 면에서 더 기대할 수 있게 되었습니다"</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 게임 개발사</div>
+      </div>
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"아직 샘플인데도 감탄하면서 들었습니다. 주동료도 EIM은 다르다며 부러워하는 이야기도 들었어요"</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 게임 개발사</div>
+      </div>
+      <div style="background:var(--white);padding:32px 28px">
+        <p style="font-family:var(--font-display);font-size:1.15rem;font-style:italic;line-height:1.7;color:var(--text-1);margin:0 0 12px">"촉박한 기간이었는데 마무리까지 잘 해주셔서 굉장히 만족스럽습니다"</p>
+        <div style="font-size:0.78rem;color:var(--text-3)">— 게임 개발사</div>
+      </div>
+    </div>
+
+    <!-- Company Info -->
+    <div style="margin-top:56px;padding:40px 0;border-top:1px solid var(--border-light);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;text-align:center">
+      <div><div style="font-family:var(--font-display);font-size:2rem;font-style:italic;color:var(--dark)">1999.04.13</div><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-3);margin-top:4px;font-weight:500">설립일</div></div>
+      <div><div style="font-family:var(--font-display);font-size:2rem;font-style:italic;color:var(--dark)">신동혁</div><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-3);margin-top:4px;font-weight:500">대표이사</div></div>
+      <div><div style="font-family:var(--font-display);font-size:2rem;font-style:italic;color:var(--dark)">20명</div><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-3);margin-top:4px;font-weight:500">종업원</div></div>
+      <div><div style="font-family:var(--font-display);font-size:2rem;font-style:italic;color:var(--dark)">1,000+</div><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-3);margin-top:4px;font-weight:500">프로젝트</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SERVICE MODALS ═══ -->
+
+<!-- Modal: Music -->
+<div class="modal-overlay" id="modal-music">
+<div class="modal-box">
+  <div class="modal-close"><button onclick="closeServiceModal()">&times;</button></div>
+  <div class="modal-header">
+    <div class="num">01</div>
+    <h2>Music Production</h2>
+    <p>게임의 세계관을 완성하는 오리지널 스코어. 오케스트라, 일렉트로닉, 하이브리드 등 모든 장르의 인터랙티브 사운드트랙을 제작합니다.</p>
+  </div>
+  <div class="modal-body">
+    <h3>Work Process</h3>
+    <div class="process-steps">
+      <div class="process-step"><div class="step-num">1</div><div class="step-content"><div class="step-title">킥오프 미팅</div><div class="step-desc">게임 세계관, 장르, 레퍼런스를 공유받고 음악 방향성을 함께 설정합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">2</div><div class="step-content"><div class="step-title">컨셉 데모 제작</div><div class="step-desc">2~3곡의 컨셉 데모를 제작하여 스타일, 악기 구성, 분위기를 확정합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">3</div><div class="step-content"><div class="step-title">본 프로덕션</div><div class="step-desc">확정된 방향으로 전체 트랙을 제작합니다. 오케스트라 실연주 녹음이 필요한 경우 세션 스케줄링을 진행합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">4</div><div class="step-content"><div class="step-title">피드백 & 수정</div><div class="step-desc">클라이언트 피드백을 반영하여 무제한 수정합니다. 만족하실 때까지 진행합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">5</div><div class="step-content"><div class="step-title">믹싱 & 마스터링</div><div class="step-desc">최종 확정된 트랙의 믹싱과 마스터링을 진행하고, 게임 엔진 포맷에 맞게 납품합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">6</div><div class="step-content"><div class="step-title">인터랙티브 구현 (선택)</div><div class="step-desc">Wwise/FMOD 기반 적응형 음악 시스템 구축이 필요한 경우 미들웨어 통합까지 지원합니다.</div></div></div>
+    </div>
+    <h3>FAQ</h3>
+    <div class="faq-item"><div class="faq-q">프로젝트 규모에 따른 비용은 어떻게 되나요?</div><div class="faq-a">트랙 수, 장르 복잡도, 실연주 녹음 여부 등에 따라 달라집니다. 킥오프 미팅에서 프로젝트 규모를 파악한 후 맞춤 견적을 제안드립니다.</div></div>
+    <div class="faq-item"><div class="faq-q">한 트랙 제작에 얼마나 걸리나요?</div><div class="faq-a">일반적으로 1트랙 기준 1~2주입니다. 오케스트라 실연주가 포함된 경우 세션 스케줄에 따라 추가 기간이 필요할 수 있습니다.</div></div>
+    <div class="faq-item"><div class="faq-q">레퍼런스 음악 없이도 의뢰할 수 있나요?</div><div class="faq-a">물론입니다. 게임의 장르, 분위기, 스토리만 공유해주시면 27년 경험을 바탕으로 최적의 음악 방향을 먼저 제안드립니다.</div></div>
+    <div class="faq-item"><div class="faq-q">저작권은 어떻게 되나요?</div><div class="faq-a">납품 완료 후 해당 게임 내 사용에 대한 저작권은 클라이언트에게 이전됩니다. 세부 조건은 계약 시 협의합니다.</div></div>
+    <div class="modal-cta"><a href="#" onclick="closeServiceModal();showPage('contact')">프로젝트 문의하기</a></div>
+  </div>
+</div>
+</div>
+
+<!-- Modal: Sound Design -->
+<div class="modal-overlay" id="modal-sound">
+<div class="modal-box">
+  <div class="modal-close"><button onclick="closeServiceModal()">&times;</button></div>
+  <div class="modal-header">
+    <div class="num">02</div>
+    <h2>Sound Design</h2>
+    <p>몰입감을 극대화하는 효과음, 앰비언스, 인터랙티브 오디오 시스템을 설계합니다. Wwise, FMOD 등 미들웨어 통합 경험으로 게임 엔진과 완벽하게 연동됩니다.</p>
+  </div>
+  <div class="modal-body">
+    <h3>Work Process</h3>
+    <div class="process-steps">
+      <div class="process-step"><div class="step-num">1</div><div class="step-content"><div class="step-title">오디오 설계 회의</div><div class="step-desc">게임 빌드를 직접 플레이하며 필요한 사운드 카테고리와 우선순위를 정리합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">2</div><div class="step-content"><div class="step-title">에셋 리스트 작성</div><div class="step-desc">전체 SFX 에셋 리스트를 작성하고, 카테고리별(전투, UI, 환경, 스킬 등) 제작 일정을 수립합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">3</div><div class="step-content"><div class="step-title">프로토타입 제작</div><div class="step-desc">핵심 사운드 에셋을 먼저 제작하여 방향성을 확인합니다. 현장 녹음(폴리)이 필요한 경우 별도 세션을 진행합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">4</div><div class="step-content"><div class="step-title">대량 제작 & QC</div><div class="step-desc">확정된 스타일로 전체 에셋을 제작하고, 내부 QC 프로세스를 거칩니다.</div></div></div>
+      <div class="process-step"><div class="step-num">5</div><div class="step-content"><div class="step-title">미들웨어 통합</div><div class="step-desc">Wwise/FMOD 프로젝트 셋업, 인터랙티브 파라미터 설정, 엔진 연동까지 지원합니다.</div></div></div>
+    </div>
+    <h3>FAQ</h3>
+    <div class="faq-item"><div class="faq-q">에셋 수량이 많을 때 일정은 어떻게 되나요?</div><div class="faq-a">카테고리별 우선순위를 정해 마일스톤 단위로 납품합니다. 수천 개 에셋 프로젝트도 다수 수행한 경험이 있습니다.</div></div>
+    <div class="faq-item"><div class="faq-q">Wwise/FMOD 중 어떤 걸 추천하시나요?</div><div class="faq-a">프로젝트 규모, 엔진 환경, 팀의 경험치에 따라 다릅니다. 두 미들웨어 모두 깊은 실무 경험이 있어 최적의 솔루션을 제안드립니다.</div></div>
+    <div class="faq-item"><div class="faq-q">사운드 디자인만 따로 의뢰할 수 있나요?</div><div class="faq-a">물론입니다. 음악, 보이스와 별도로 SFX만 독립적으로 의뢰 가능합니다. 부분 의뢰도 환영합니다.</div></div>
+    <div class="modal-cta"><a href="#" onclick="closeServiceModal();showPage('contact')">프로젝트 문의하기</a></div>
+  </div>
+</div>
+</div>
+
+<!-- Modal: Voice -->
+<div class="modal-overlay" id="modal-voice">
+<div class="modal-box">
+  <div class="modal-close"><button onclick="closeServiceModal()">&times;</button></div>
+  <div class="modal-header">
+    <div class="num">03</div>
+    <h2>Voice Production</h2>
+    <p>캐릭터에 생명을 불어넣는 다국어 보이스 캐스팅 및 레코딩. 한국어, 영어, 일본어, 중국어 등 10개 이상의 언어를 지원합니다.</p>
+  </div>
+  <div class="modal-body">
+    <h3>Work Process</h3>
+    <div class="process-steps">
+      <div class="process-step"><div class="step-num">1</div><div class="step-content"><div class="step-title">캐릭터 분석</div><div class="step-desc">대사 스크립트와 캐릭터 설정을 분석하여 보이스 방향성을 정합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">2</div><div class="step-content"><div class="step-title">캐스팅 & 오디션</div><div class="step-desc">캐릭터에 맞는 성우 후보를 3~5명 제안하고, 샘플 오디션을 진행합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">3</div><div class="step-content"><div class="step-title">레코딩 세션</div><div class="step-desc">자체 보이스 부스에서 디렉터 입회 하에 레코딩합니다. 원격 디렉팅도 지원합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">4</div><div class="step-content"><div class="step-title">편집 & 후처리</div><div class="step-desc">노이즈 제거, 볼륨 노멀라이징, 이펙트 처리 등 후반 작업을 진행합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">5</div><div class="step-content"><div class="step-title">납품 & 현지화</div><div class="step-desc">파일 네이밍 규칙에 맞춰 납품하고, 다국어 현지화가 필요한 경우 해당 언어권 세션을 추가 진행합니다.</div></div></div>
+    </div>
+    <h3>FAQ</h3>
+    <div class="faq-item"><div class="faq-q">영어/일본어 성우도 섭외 가능한가요?</div><div class="faq-a">10개 이상의 언어에 대한 전문 성우 네트워크를 보유하고 있습니다. 한국어, 영어, 일본어, 중국어는 물론 유럽 주요 언어까지 커버합니다.</div></div>
+    <div class="faq-item"><div class="faq-q">대사량이 많을 때 일정은요?</div><div class="faq-a">대사량과 캐릭터 수에 따라 일정을 산정합니다. 수천 라인 규모의 프로젝트도 마일스톤별로 체계적으로 진행합니다.</div></div>
+    <div class="faq-item"><div class="faq-q">원격으로 디렉팅할 수 있나요?</div><div class="faq-a">Source-Connect, Zoom 등을 활용한 실시간 원격 디렉팅을 지원합니다. 해외 클라이언트와도 원활하게 협업하고 있습니다.</div></div>
+    <div class="modal-cta"><a href="#" onclick="closeServiceModal();showPage('contact')">프로젝트 문의하기</a></div>
+  </div>
+</div>
+</div>
+
+<!-- Modal: AI -->
+<div class="modal-overlay" id="modal-ai">
+<div class="modal-box">
+  <div class="modal-close"><button onclick="closeServiceModal()">&times;</button></div>
+  <div class="modal-header">
+    <div class="num">04</div>
+    <h2>AI-Powered Audio</h2>
+    <p>AI 기술을 활용한 효율적인 오디오 프로덕션 파이프라인. 전통적 제작 방식과 AI를 결합하여 최적의 결과물을 제공합니다.</p>
+  </div>
+  <div class="modal-body">
+    <h3>Work Process</h3>
+    <div class="process-steps">
+      <div class="process-step"><div class="step-num">1</div><div class="step-content"><div class="step-title">니즈 분석</div><div class="step-desc">프로젝트 규모와 에셋 특성을 분석하여 AI 도입이 효과적인 영역을 파악합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">2</div><div class="step-content"><div class="step-title">AI 파이프라인 설계</div><div class="step-desc">NPC 대사 자동 생성, 프로시저럴 앰비언스, 워크플로우 자동화 등 적용 범위를 확정합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">3</div><div class="step-content"><div class="step-title">프로토타입 & 검증</div><div class="step-desc">AI 생성 결과물의 품질을 검증하고, 전문가가 직접 감수하여 퀄리티를 보장합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">4</div><div class="step-content"><div class="step-title">대량 생산 & 튜닝</div><div class="step-desc">검증된 파이프라인으로 대량 에셋을 생성하고, 전문가가 최종 튜닝합니다.</div></div></div>
+      <div class="process-step"><div class="step-num">5</div><div class="step-content"><div class="step-title">통합 & 납품</div><div class="step-desc">게임 엔진 포맷에 맞춰 에셋을 정리하고, 필요 시 미들웨어 통합까지 지원합니다.</div></div></div>
+    </div>
+    <h3>FAQ</h3>
+    <div class="faq-item"><div class="faq-q">AI 보이스의 품질은 실제 성우와 비교해 어떤가요?</div><div class="faq-a">현재 AI 보이스는 NPC 일반 대사, 시스템 안내 등에 효과적입니다. 주요 캐릭터의 감정 연기가 필요한 대사는 실제 성우 레코딩을 권장드립니다.</div></div>
+    <div class="faq-item"><div class="faq-q">AI로 만든 음악/사운드의 저작권은요?</div><div class="faq-a">AI 생성 에셋의 저작권 구조는 계약 시 명확히 정리합니다. EIM은 자체 학습 모델을 활용하여 저작권 이슈를 최소화합니다.</div></div>
+    <div class="faq-item"><div class="faq-q">기존 프로젝트에 AI를 부분적으로 도입할 수 있나요?</div><div class="faq-a">물론입니다. 기존 수작업 프로세스에 AI를 부분적으로 도입하여 효율을 높이는 하이브리드 방식을 적극 권장합니다.</div></div>
+    <div class="modal-cta"><a href="#" onclick="closeServiceModal();showPage('contact')">프로젝트 문의하기</a></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer" id="footer">
+  <div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <svg width="28" height="20" viewBox="0 0 36 26" fill="none"><path d="M6 0L0 26h6L12 0H6z" fill="#C82828"/><path d="M15 0L9 26h6L21 0h-6z" fill="#E87830"/><path d="M24 0L18 26h6L30 0h-6z" fill="#F0A830"/></svg>
+      <h4 style="margin:0">Studio EIM</h4>
+    </div>
+    <p>Game Audio Production House<br>Since 1999</p>
+  </div>
+  <div>
+    <h4>Contact</h4>
+    <p><a href="mailto:contact@eim.kr">contact@eim.kr</a><br><a href="tel:02-412-6430">02-412-6430</a><br>09:30–18:30 (Mon–Fri)</p>
+  </div>
+  <div>
+    <h4>Follow</h4>
+    <p><a href="https://youtube.com/@StudioEIM" target="_blank">YouTube</a> · <a href="https://instagram.com/studioeim" target="_blank">Instagram</a><br><a href="https://blog.naver.com/studioeim" target="_blank">Blog</a> · <a href="https://facebook.com/studioeim" target="_blank">Facebook</a></p>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Studio EIM. All Rights Reserved.</span>
+    <span>서울특별시 송파구 석촌동 156, 2F</span>
+  </div>
+</footer>
+
+<script>
+// YouTube video opener
+function openYT(q,type){
+  let url;
+  if(type==='id') url='https://www.youtube.com/watch?v='+q;
+  else if(type==='channel') url='https://www.youtube.com/@StudioEIM';
+  else url='https://www.youtube.com/results?search_query='+encodeURIComponent(q);
+  window.open(url,'_blank');
+}
+
+// Page navigation
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-links a[data-page]').forEach(a=>{
+    a.classList.toggle('active',a.dataset.page===page);
+  });
+  // Toggle nav style for hero video bg
+  const nav=document.getElementById('nav');
+  if(page==='home'){nav.classList.add('nav-hero')}else{nav.classList.remove('nav-hero')}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Mobile menu
+function toggleMobile(){
+  document.getElementById('burger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+
+// Scroll effect for nav
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40);
+});
+
+// Portfolio filter
+function filterPortfolio(cat,btn){
+  document.querySelectorAll('.portfolio-filters button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.video-card').forEach(c=>{
+    c.style.display=(cat==='all'||c.dataset.cat===cat)?'block':'none';
+  });
+}
+
+// Demo tabs
+function showDemoTab(tab,btn){
+  document.querySelectorAll('.demo-tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.demo-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('demo-'+tab).classList.add('active');
+}
+
+// Contact form type
+function showContactForm(type,el){
+  document.querySelectorAll('.contact-type').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const sub=document.getElementById('contactSubject');
+  const opts={
+    production:['— 제작 문의 유형 선택 —','게임 음악 제작','사운드 디자인','보이스 프로덕션','AI 오디오','풀 패키지'],
+    booking:['— 예약 유형 선택 —','레코딩 스튜디오','믹싱/마스터링','보이스 레코딩','기타 스튜디오 사용'],
+    general:['— 문의 유형 선택 —','언론/미디어','채용 문의','파트너십','기타']
+  };
+  sub.innerHTML=opts[type].map(o=>`<option>${o}</option>`).join('');
+}
+
+// ═══ Hero Video ═══
+const heroVid=document.getElementById('heroVideo');
+if(heroVid){
+  heroVid.addEventListener('canplaythrough',()=>heroVid.classList.add('loaded'),{once:true});
+  if(heroVid.readyState>=4) heroVid.classList.add('loaded');
+}
+function toggleHeroSound(){
+  const v=document.getElementById('heroVideo');
+  const b=document.getElementById('heroSoundBtn');
+  if(!v)return;
+  v.muted=!v.muted;
+  b.textContent=v.muted?'🔇':'🔊';
+  b.title=v.muted?'사운드 켜기':'사운드 끄기';
+}
+
+// ═══ Service Modals ═══
+function openServiceModal(service){
+  document.getElementById('modal-'+service).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeServiceModal(){
+  document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('open'));
+  document.body.style.overflow='';
+}
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',e=>{if(e.target===m)closeServiceModal()});
+});
+</script>
+</body>
+</html>
