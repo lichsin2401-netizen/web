@@ -1204,7 +1204,13 @@ document.querySelectorAll('.modal-overlay').forEach(m=>{
   m.addEventListener('click',e=>{if(e.target===m)closeServiceModal()});
 });
 
+// end of original JS
+</script>
+
+<!-- FONT SWITCHER — SEPARATE SCRIPT TO AVOID ORIGINAL JS ERRORS BLOCKING IT -->
+<script>
 // ═══ FONT SWITCHER ═══
+try {
 const fontPresets = [
   {
     id: 'current',
@@ -1377,14 +1383,23 @@ function buildFontSwitcher() {
 }
 
 buildFontSwitcher();
-console.log('[FontSwitcher] Panel loaded with', fontPresets.length, 'presets');
+console.log('[FontSwitcher] ✅ Panel loaded with', fontPresets.length, 'presets');
 
-// Keyboard shortcuts: left/right arrow to switch fonts
+// Keyboard shortcuts
 document.addEventListener('keydown', e => {
   if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
   if(e.key === 'ArrowLeft') applyFont(Math.max(0, currentFontIdx - 1));
   if(e.key === 'ArrowRight') applyFont(Math.min(fontPresets.length - 1, currentFontIdx + 1));
 });
+
+} catch(err) {
+  console.error('[FontSwitcher] ❌ Error:', err);
+  // Fallback: inject minimal visible panel even if main code fails
+  var fb = document.createElement('div');
+  fb.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#111;color:#fff;padding:16px;text-align:center;font-family:sans-serif;border-top:2px solid #E87830';
+  fb.innerHTML = '⚠️ Font Switcher 로드 실패 — 콘솔에서 에러를 확인하세요';
+  document.body.appendChild(fb);
+}
 </script>
 </body>
 </html>
