@@ -1335,18 +1335,18 @@ function buildFontSwitcher() {
   panel.id = 'fontSwitcher';
   panel.innerHTML = `
     <style>
-      #fontSwitcher{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(17,17,17,0.96);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.1);padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:transform .3s}
-      #fontSwitcher.fs-collapsed{transform:translateY(calc(100% - 44px))}
-      .fs-toggle{position:absolute;top:-36px;right:24px;background:rgba(17,17,17,0.96);border:1px solid rgba(255,255,255,0.1);border-bottom:none;border-radius:8px 8px 0 0;color:#fff;padding:6px 16px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
-      .fs-toggle:hover{background:rgba(40,40,40,0.96)}
+      #fontSwitcher{position:fixed!important;bottom:0!important;left:0!important;right:0!important;z-index:99999!important;background:rgba(17,17,17,0.97)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:2px solid #E87830!important;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:transform .3s;display:block!important;visibility:visible!important;opacity:1!important}
+      #fontSwitcher.fs-collapsed{transform:translateY(calc(100% - 48px))}
+      .fs-toggle{position:absolute;top:-40px;right:24px;background:#E87830!important;border:none;border-radius:10px 10px 0 0;color:#fff;padding:8px 20px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 -4px 16px rgba(232,120,48,0.4);letter-spacing:0.5px}
+      .fs-toggle:hover{background:#C82828!important}
       .fs-header{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-bottom:1px solid rgba(255,255,255,0.08)}
       .fs-header h3{color:#fff;font-size:14px;font-weight:600;margin:0;letter-spacing:0.5px}
-      #fs-info{color:var(--eim-orange);font-size:13px;font-weight:500}
+      #fs-info{color:#E87830;font-size:13px;font-weight:600}
       .fs-grid{display:flex;gap:6px;padding:12px 24px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
       .fs-grid::-webkit-scrollbar{display:none}
       .fs-btn{flex-shrink:0;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:8px 14px;color:rgba(255,255,255,0.7);font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap;text-align:left;line-height:1.4}
       .fs-btn:hover{background:rgba(255,255,255,0.12);color:#fff}
-      .fs-btn.fs-active{background:var(--eim-orange);border-color:var(--eim-orange);color:#fff;font-weight:600}
+      .fs-btn.fs-active{background:#E87830!important;border-color:#E87830!important;color:#fff;font-weight:600;box-shadow:0 2px 8px rgba(232,120,48,0.4)}
       .fs-btn .fs-tag{display:block;font-size:10px;opacity:0.7;margin-top:2px}
       .fs-nav{display:flex;gap:8px;align-items:center}
       .fs-nav button{background:rgba(255,255,255,0.1);border:none;color:#fff;width:32px;height:32px;border-radius:6px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
@@ -1377,6 +1377,7 @@ function buildFontSwitcher() {
 }
 
 buildFontSwitcher();
+console.log('[FontSwitcher] Panel loaded with', fontPresets.length, 'presets');
 
 // Keyboard shortcuts: left/right arrow to switch fonts
 document.addEventListener('keydown', e => {
