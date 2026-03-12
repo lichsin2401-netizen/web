@@ -28,6 +28,10 @@
     { "source": "/music", "destination": "/music.html" },
     { "source": "/sound-design", "destination": "/sound-design.html" },
     { "source": "/reviews", "destination": "/reviews.html" },
-    { "source": "/news", "destination": "/news.html" }
+    { "source": "/news", "destination": "/news.html" },
+    { "source": "/v1", "destination": "/v1.html" },
+    { "source": "/v2", "destination": "/v2.html" },
+    { "source": "/font-test", "destination": "/font-test.html" },
+    { "source": "/sora", "destination": "/index-sora.html" }
   ]
 }
